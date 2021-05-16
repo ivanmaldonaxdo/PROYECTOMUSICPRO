@@ -4,13 +4,15 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="static/css/estilos.css">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+        <link rel="stylesheet" href="{% static 'css/estilos_base.css' %}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <script src="https://kit.fontawesome.com/2ff68c31c3.js"></script>
         <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,700;1,700&display=swap" rel="stylesheet"> 
-        <title>Document</title>
+        <title>Home UwU</title>
     </head>
+    
     <body>
         <header class="header">
             <div class="container logo-nav-container">
@@ -28,25 +30,12 @@
             </div>
         </header>
 
-        <main class="main">
-            <div class="container">
-
-                <h1>
-                    Hola soy el título
-                </h1>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, explicabo dolorum asperiores iusto facilis nihil in ut iure quidem dicta facere, voluptatibus sunt autem obcaecati modi officia vero voluptate doloribus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, explicabo dolorum asperiores iusto facilis nihil in ut iure quidem dicta facere, voluptatibus sunt autem obcaecati modi officia vero voluptate doloribus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, explicabo dolorum asperiores iusto facilis nihil in ut iure quidem dicta facere, voluptatibus sunt autem obcaecati modi officia vero voluptate doloribus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, explicabo dolorum asperiores iusto facilis nihil in ut iure quidem dicta facere, voluptatibus sunt autem obcaecati modi officia vero voluptate doloribus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, explicabo dolorum asperiores iusto facilis nihil in ut iure quidem dicta facere, voluptatibus sunt autem obcaecati modi officia vero voluptate doloribus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, explicabo dolorum asperiores iusto facilis nihil in ut iure quidem dicta facere, voluptatibus sunt autem obcaecati modi officia vero voluptate doloribus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, explicabo dolorum asperiores iusto facilis nihil in ut iure quidem dicta facere, voluptatibus sunt autem obcaecati modi officia vero voluptate doloribus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, explicabo dolorum asperiores iusto facilis nihil in ut iure quidem dicta facere, voluptatibus sunt autem obcaecati modi officia vero voluptate doloribus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, explicabo dolorum asperiores iusto facilis nihil in ut iure quidem dicta facere, voluptatibus sunt autem obcaecati modi officia vero voluptate doloribus.</p>
-
-            </div>
-        </main>
+        <div class="contenido">
+          {% block contenido %}
+    
+          {% endblock %}
+    
+        </div>
 
         <!--Footer-->
     <footer>
@@ -89,13 +78,14 @@
         </div>
         <div class="bottom">
           <center>
-            <span class="far fa-copyright"></span><span> 2020 All rights reserved.</span>
+            <span class="far fa-copyright"></span><span> 2021 All rights reserved.</span>
           </center>
         </div>
       </footer>
       <!--End Footer-->
     
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{% static 'js/modal.js' %}"></script>
         <script src="static/js/dashboard.js"></script>
     </body>
 </html>

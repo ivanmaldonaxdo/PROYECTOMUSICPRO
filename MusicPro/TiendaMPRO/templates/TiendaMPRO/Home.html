@@ -1,11 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Pro - Home</title>
-</head>
-<body>
+{% extends 'TiendaMPRO/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+
+
+<img src="{% static 'image/Home.png' %}" alt="" width="100%">
+
+<div class="categorias">
     
-</body>
-</html>
+</div>
+
+
+
+
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
+
+<!--Ventana Modal-->
+<div id="miModal" class="modal">
+    <div class="flex" id="flex">
+      <div class="contenido-modal">
+        <div class="modal-header flex">
+          <h2>¡AVISO IMPORTANTE!</h2>
+          <span class="close" id="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>Coronavirus; Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate nisi architecto nulla asperiores quibusdam quos ex consectetur, facere recusandae necessitatibus blanditiis. Asperiores blanditiis excepturi temporibus quo minus dolorem fuga consectetur.</p>
+          <p style="font-weight: 900;">Domingos no se labura: Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, omnis. Dolorum fugiat asperiores error, ipsam ea eum debitis, ipsa facere iure iusto saepe mollitia. Odio nobis repellat id quasi placeat expedita exercitationem, ipsa alias asperiores. Libero voluptates recusandae rem accusamus sed porro quam ipsa modi nisi maxime eos, atque a impedit soluta praesentium dolores, doloremque quidem dicta? Veritatis, nostrum soluta ipsum nisi alias mollitia ad at numquam perspiciatis consequuntur molestiae amet culpa iure, aliquam omnis hic quibusdam adipisci. Nam iste placeat illum magnam rerum consequatur? Nostrum ea rerum sed voluptatem reprehenderit optio nam vel! Cum dolor sit architecto ratione dolores.</p>			
+        </div>
+        <div class="footer">
+          <h3>MusicPRO &copy;</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Ventana Modal-->
+<script src="{% static 'js/modal.js' %}"></script>
+{% endblock %}
+
