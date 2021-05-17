@@ -1,6 +1,8 @@
 from django.conf.urls import include, url
 from . import views
+from .views import home
+from django.urls import path
 
 urlpatterns = [
-    url(r'^$', views.post_list),
+    path('', home, name='home'),
 ]
