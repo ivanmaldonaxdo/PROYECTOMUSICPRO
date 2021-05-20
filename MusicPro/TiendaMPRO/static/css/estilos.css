@@ -89,7 +89,25 @@ p {
     padding: 4rem 0;
     text-align: center;
 }
+.padre-producto{
+  margin-top: 160px;
+  margin-left: 300px;
+  grid-template-columns: repeat(3, 250px);
+  display: grid;
+  padding-bottom: 325px;
+  column-gap: 40px;
+  /* gap: 200px 1px; */
 
+}
+.producto-box{
+  /* margin-top: 60px; */
+  width: 225px;
+  height: 250px;
+  color: rgb(19, 9, 9);
+  background-color: blue;
+  /* justify-self: center; */
+
+}
 @media only screen and (max-width: 767px) {
     
     .menu-icon {
