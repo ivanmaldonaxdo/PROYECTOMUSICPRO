@@ -3,17 +3,8 @@
 {% load static %}
 
 {% block contenido %}
-
-
-
-<img src="{% static 'image/Home.png' %}" alt="" width="100%">
-
-<div class="categorias">
-    
-</div>
-
 <section>
-  <div class="container">
+  <div class="container" style="max-width: 100% !important;">
     <div class="carrusel">
       <h2>
         </h>
@@ -32,10 +23,10 @@
 
             </div>
             <div class="carousel-item">
-              <a href=""><img src="{% static 'image/Home.png' %}" class="d-block w-100" alt="img2"></a>
+              <a href=""><img src="{% static 'image/Home2.png' %}" class="d-block w-100" alt="img2"></a>
             </div>
             <div class="carousel-item">
-              <a href=""><img src="{% static 'image/Home.png' %}" class="d-block w-100" alt="img3"></a>
+              <a href=""><img src="{% static 'image/Home3.png' %}" class="d-block w-100" alt="img3"></a>
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -55,16 +46,42 @@
 
 </section>
 
+<div class="container section-title-container" >
+  <h3 class="section-title section-title-center">
+    <b>
+    </b>
+    <span class="section-title-main">Ofertas</span>
+    <b>
+    </b>
+  </h3>
+</div>
+
+<div class="productos-oferta" style="margin-bottom: 500px;"></div>
+
+<div class="container section-title-container">
+  <h3 class="section-title section-title-center">
+    <b>
+    </b>
+    <span class="section-title-main">Productos destacados</span>
+    <b>
+    </b>
+  </h3>
+</div>
+
+<div class="productos-destacados" style="margin-bottom: 500px;"></div>
 
 
+<div class="container section-title-container">
+  <h3 class="section-title section-title-center">
+    <b>
+    </b>
+    <span class="section-title-main">Categorías</span>
+    <b>
+    </b>
+  </h3>
+</div>
 
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
+<div class="categorias" style="margin-bottom: 500px;"></div>
 
 {% endblock %}
 
