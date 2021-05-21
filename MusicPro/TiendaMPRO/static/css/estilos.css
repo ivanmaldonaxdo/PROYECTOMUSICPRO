@@ -89,6 +89,46 @@ p {
     padding: 4rem 0;
     text-align: center;
 }
+.nav-lateral{
+  background-color: blue;
+  /* right: 100%; */
+  width: 50%;
+  height: auto;
+  margin: 1000px 0;
+  transition: 0.9s;
+  z-index: 10000;
+
+}
+.nav-lateral>ul{
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  z-index: 20000;
+  padding: 0;
+  color: white;
+
+}
+.nav-lateral>ul>li{
+  display: inline-block;
+  color: white;
+  /* background-color: #1D1D28; */
+  line-height: 15px;
+
+}
+.nav-lateral>ul>li>a{
+  padding: 12px;
+  color: white;
+  font-size: 21.8px;
+  text-decoration: none;
+  font-family: Arial;
+  display: block;
+  text-align: center;
+  /* font-family: "Nunito"; */
+  padding-block: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+
 .padre-producto{
   margin-top: 160px;
   margin-left: 300px;
