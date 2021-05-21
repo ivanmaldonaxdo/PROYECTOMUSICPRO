@@ -15,17 +15,19 @@ def Productos(request):
     for c in categ:
         # print(c)
         subCateg=SubCategoria.objects.filter(categoria=c).select_related('categoria')
-        context={'categ':categ}
         for sb in subCateg:
             tipoProd=TipoProducto.objects.filter(sub_categ=sb).select_related('sub_categ')
-            # print(subCateg)
-            print("Categoria: ", c ,", Subcateg: ",subCateg,", Tipo Prod: ", tipoProd)
-
-            # sb=getattr(subCateg,"sub_categ_name")
-            # print(categ)
-            # print(subCateg)
-            # print("sb",sb)
-            # print(categ.get(id))
-            # prod=Producto.objects.all()
-            # subCateg=SubCategoria.objects.filter(categoria=id_categ)
+            for tp in tipoProd:
+                # print(subCateg)
+                producto=Producto.objects.filter(tipo_prod=tp).select_related('tipo_prod')
+                # print("Categoria: ", c ,", Subcateg: ",subCateg,", Tipo Prod: ", tipoProd,", Producto: ", producto )
+                context={'categ':categ,"subCateg":subCateg,"tipoProd":tipoProd,"producto":producto}
+                print(context)
+                # sb=getattr(subCateg,"sub_categ_name")
+                # print(categ)
+                # print(subCateg)
+                # print("sb",sb)
+                # print(categ.get(id))
+                # prod=Producto.objects.all()
+                # subCateg=SubCategoria.objects.filter(categoria=id_categ)
     return render(request, 'TiendaMPRO/Productos.html',context)
