@@ -7,7 +7,9 @@ from .models import *
 # from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 def home(request):
-    return render(request, 'TiendaMPRO/home.html')
+    categ=Categoria.objects.all()
+    context={'categ':categ}
+    return render(request, 'TiendaMPRO/home.html',context)
 
 def Productos(request):
     # id_categ=Categoria.objects.all()
@@ -24,3 +26,11 @@ def Productos(request):
                 context={'categ':categ,"subCateg":subCateg,"tipoProd":tipoProd,"producto":producto}
                 print(context)  
     return render(request, 'TiendaMPRO/Productos.html',context)
+
+def Pagar(request):
+    producto =Producto.objects.all()
+    context={'producto':producto}
+    for pr in producto:
+        precio=getattr(pr,"precio")
+        print(precio)
+    return render(request,'TiendaMPRO/Pagar.html',context)

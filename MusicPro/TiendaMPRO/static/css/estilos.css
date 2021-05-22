@@ -123,6 +123,18 @@ p {
     padding: 4rem 0;
     text-align: center;
 }
+.pago-content{
+  margin-top: 100px;
+  /* background-color:rgb(23, 23, 189); */
+  background-color:orange;
+  height: 1000px;
+}
+.pago-content>h1{
+  padding-top: 25px;
+  text-align: center;
+  font-family: monospace;
+  color: white;
+}
 .nav-lateral{
   background-color: blue;
   /* right: 100%; */
@@ -176,11 +188,33 @@ p {
 .producto-box{
   /* margin-top: 60px; */
   width: 225px;
-  height: 250px;
+  height: 350px;
   color: rgb(19, 9, 9);
-  background-color: blue;
+  /* background-color: blue; */
+  display: grid;
+  /* justify-content: center; */
+  /* float: none; */
+
+  
   /* justify-self: center; */
 
+}
+.imagen{
+  background-color: aqua;
+  width: 195px;
+  height: 220px;
+  margin-top: -25px;
+  justify-self: center;  /* display: flex; */
+}
+.producto-box>h4,.producto-box>h5{
+  text-align: center;
+  color: white;
+}
+.producto-box>h4{
+  font-size: 20px;
+}
+.producto-box>h5{
+  margin-top: -15px;
 }
 @media only screen and (max-width: 767px) {
     

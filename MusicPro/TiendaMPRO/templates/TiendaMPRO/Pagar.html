@@ -1,0 +1,26 @@
+{% extends 'TiendaMPRO/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<div class="pago-content">
+    <h1>PAGO TRANSBANK </h5>
+    
+    <section class="padre-producto">
+    {% for pr in producto %}
+        <article class="producto-box">
+            <h4>{{pr.nom_prod}}</h4>
+            <!-- <label for=""</label> -->
+            <div class="imagen">
+            </div>          
+            <h5> {{pr.precio}}</h5>
+            <!-- <label for=""></label> -->
+
+        </article>
+    {% endfor %}
+    </section>
+</div>
+<!-- div#content-wrapper. -->
+{% endblock %}
+
