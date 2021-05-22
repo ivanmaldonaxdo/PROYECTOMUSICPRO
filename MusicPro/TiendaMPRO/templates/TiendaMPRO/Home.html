@@ -3,17 +3,8 @@
 {% load static %}
 
 {% block contenido %}
-
-
-
-<img src="{% static 'image/Home.png' %}" alt="" width="100%">
-
-<div class="categorias">
-    
-</div>
-
 <section>
-  <div class="container">
+  <div class="container" style="max-width: 100% !important;">
     <div class="carrusel">
       <h2>
         </h>
@@ -32,10 +23,10 @@
 
             </div>
             <div class="carousel-item">
-              <a href=""><img src="{% static 'image/Home.png' %}" class="d-block w-100" alt="img2"></a>
+              <a href=""><img src="{% static 'image/Home2.png' %}" class="d-block w-100" alt="img2"></a>
             </div>
             <div class="carousel-item">
-              <a href=""><img src="{% static 'image/Home.png' %}" class="d-block w-100" alt="img3"></a>
+              <a href=""><img src="{% static 'image/Home3.png' %}" class="d-block w-100" alt="img3"></a>
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -55,16 +46,114 @@
 
 </section>
 
+<div class="container section-title-container" >
+  <h3 class="section-title section-title-center">
+    <b>
+    </b>
+    <span class="section-title-main">Ofertas</span>
+    <b>
+    </b>
+  </h3>
+</div>
+
+<div class="productos-oferta" style="margin-bottom: 500px;"></div>
+
+<div class="container section-title-container">
+  <h3 class="section-title section-title-center">
+    <b>
+    </b>
+    <span class="section-title-main">Productos destacados</span>
+    <b>
+    </b>
+  </h3>
+</div>
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+<section class="hero-section">
+  <div class="card-grid">
+    <a class="card" href="#">
+      <div class="card__background" style="background-image: url(https://images.unsplash.com/photo-1557177324-56c542165309?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)"></div>
+      <div class="card__content">
+        <p class="card__category">Category</p>
+        <h3 class="card__heading">Example Card Heading</h3>
+      </div>
+    </a>
+    <a class="card" href="#">
+      <div class="card__background" style="background-image: url(https://images.unsplash.com/photo-1557187666-4fd70cf76254?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60)"></div>
+      <div class="card__content">
+        <p class="card__category">Category</p>
+        <h3 class="card__heading">Example Card Heading</h3>
+      </div>
+    </a>
+    <a class="card" href="#">
+      <div class="card__background" style="background-image: url(https://images.unsplash.com/photo-1556680262-9990363a3e6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60)"></div>
+      <div class="card__content">
+        <p class="card__category">Category</p>
+        <h3 class="card__heading">Example Card Heading</h3>
+      </div>
+    </li>
+    <a class="card" href="#">
+      <div class="card__background" style="background-image: url(https://images.unsplash.com/photo-1557004396-66e4174d7bf6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60)"></div>
+      <div class="card__content">
+        <p class="card__category">Category</p>
+        <h3 class="card__heading">Example Card Heading</h3>
+      </div>
+    </a>
+  <div>
+</section>
 
 
+<div class="container section-title-container">
+  <h3 class="section-title section-title-center">
+    <b>
+    </b>
+    <span class="section-title-main">Categorías</span>
+    <b>
+    </b>
+  </h3>
+</div>
 
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde eos facere quidem repudiandae cumque nihil aspernatur sequi sunt! Illo amet pariatur aperiam iure? Nemo, fuga distinctio. Laborum facere numquam officia.</p>
+<div class="container d-flex justify-content-center mt-100" style="margin-top: 30px; padding: 50px;">
+  <div class="row">
+      <div class="col-md-3">
+          <div class="product-wrapper mb-45 text-center">
+              <div class="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/tL7ZE46.jpg" alt=""> </a> <span class="text-center">Desde $100.000</span>
+                  <div class="product-action">
+                      <div class="product-action-style"> <a href="#"> <i class="fa fa-plus"></i> </a> <a href="#"> <i class="fa fa-heart"></i> </a> <a href="#"> <i class="fa fa-shopping-cart"></i> </a> </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3">
+          <div class="product-wrapper mb-45 text-center">
+              <div class="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/lAQxXCK.jpg" alt=""> </a> <span class="text-center">Desde $100.000</span>
+                  <div class="product-action">
+                      <div class="product-action-style"> <a class="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true"> <i class="fa fa-plus"></i> </a> <a class="action-heart" title="Wishlist" href="#" data-abc="true"> <i class="fa fa-heart"></i> </a> <a class="action-cart" title="Add To Cart" href="#" data-abc="true"> <i class="fa fa-shopping-cart"></i> </a> </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3">
+          <div class="product-wrapper mb-45 text-center">
+              <div class="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/HxEEu5g.jpg" alt=""> </a> <span class="text-center">Desde $100.000</span>
+                  <div class="product-action">
+                      <div class="product-action-style"> <a class="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true"> <i class="fa fa-plus"></i> </a> <a class="action-heart" title="Wishlist" href="#" data-abc="true"> <i class="fa fa-heart"></i> </a> <a class="action-cart" title="Add To Cart" href="#" data-abc="true"> <i class="fa fa-shopping-cart"></i> </a> </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3">
+          <div class="product-wrapper mb-45 text-center">
+              <div class="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/lAQxXCK.jpg" alt=""> </a> <span class="text-center">Desde $100.000</span>
+                  <div class="product-action">
+                      <div class="product-action-style"> <a class="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true"> <i class="fa fa-plus"></i> </a> <a class="action-heart" title="Wishlist" href="#" data-abc="true"> <i class="fa fa-heart"></i> </a> <a class="action-cart" title="Add To Cart" href="#" data-abc="true"> <i class="fa fa-shopping-cart"></i> </a> </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
 
 {% endblock %}
 
