@@ -7,6 +7,7 @@ urlpatterns = [
     path('', home, name='home'),
     url(r'^Productos/$', views.Productos, name="Productos"),
     url(r'^Pagar/$', views.Pagar, name="Pagar"),
+    url(r'^CommitPago/$', views.CommitPago, name="CommitPago"),
 
 
 ]

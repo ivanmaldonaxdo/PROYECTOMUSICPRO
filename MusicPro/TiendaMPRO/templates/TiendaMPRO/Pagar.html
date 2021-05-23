@@ -5,7 +5,7 @@
 {% block contenido %}
 
 <div class="pago-content">
-    <h1>PAGO TRANSBANK </h5>
+    <h1>PAGO TRANSBANK </h1>
     
     <section class="padre-producto">
     {% for pr in producto %}
@@ -21,6 +21,13 @@
         </article>
     {% endfor %}
     </section>
+    <form method="post" action={{response.url}}>
+        <input type="hidden" name="token_ws" value= {{response.token}} />
+        <input class="btn btn-success btn-pagar" type="submit" value="Ir a pagar" />
+    </form>
+    <h5>Token: {{response.token}}</h5>
+    <h5>URL {{response.url}}</h5>
+
 </div>
 <!-- div#content-wrapper. -->
 {% endblock %}

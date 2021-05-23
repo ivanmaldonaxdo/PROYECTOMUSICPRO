@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from .models import *
-# import transbank.webpay.webpay_plus.transaction as tr
-# from transbank import transaccion_completa as tc
-# from transbank.common.integration_type import IntegrationType as it
-# import random
-# from django.views.decorators.csrf import csrf_exempt
+import transbank.webpay.webpay_plus.transaction as tr
+import random
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
+
 def home(request):
     categ=Categoria.objects.all()
     context={'categ':categ}
@@ -29,12 +28,30 @@ def Productos(request):
 
 def Pagar(request):
     producto =Producto.objects.all()
-    context={'producto':producto}
     total=0
     for pr in producto:
         precio=getattr(pr,"precio")
         total+=precio
         print('Precio: ',precio)
-
     print('Total: ',total)
+    currentUrl=request.build_absolute_uri()
+    url_sep=currentUrl.rsplit(sep="/" ,maxsplit=2)
+    retorno=url_sep[0] + '/CommitPago/'
+    print('Url A Retornar: ',retorno)
+    orden_compra=random.randint(10000000,99999999)
+    session_id=random.randint(10000000,99999999)
+    response=tr.Transaction.create(orden_compra,session_id,total,retorno)
+    global token
+    def token():
+        return response.token
+    print("Token a enviar a Commit Pagar: ",token())
+    context={'producto':producto,'response':response}
     return render(request,'TiendaMPRO/Pagar.html',context)
+
+@csrf_exempt
+def CommitPago(request):
+    tk= token()
+    print("Token recibido dede Pago: ",token())
+    context={'tk':tk}
+    return render(request, 'TiendaMPRO/CommitPago.html',context)
+    # return render(request, 'TiendaMPRO/CommitPago.html')
