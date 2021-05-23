@@ -6,9 +6,19 @@
 
 <div class="commit-pago-content">
     <h1>COMMIT TRANSBANK </h1>
-    <h5>Monto: {{response.amount}}</h5>
-    <h5>Estado: {{response.status}}</h5>
-    <h5>Orden De Compra: {{response.buy_order}}</h5>
+    <h5>Monto: {{respse.amount}}</h5>
+    <h5>Estado: {{respse.status}}</h5>
+    <h5>Orden De Compra: {{respse.buy_order}}</h5>
+
+    
+    {% ifequal respse.response_code 0 %} 
+        <h1>TRANSACCION APROBADA</h1>   
+    {% endifequal %}
+
+    {% ifnotequal respse.response_code 0  %}
+        <h1>TRANSACCION RECHAZADA</h1>  
+    {% endifnotequal %}
+            
 </div>
 <!-- div#content-wrapper. -->
 {% endblock %}

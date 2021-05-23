@@ -53,6 +53,7 @@ def CommitPago(request):
     tk= token()
     print("Token recibido dede Pago: ",token())
     response=tr.Transaction.commit(tk)
-    context={'tk':tk,'response':response}
+    context={'tk':tk,'respse':response}
+    print(response.response_code)
     return render(request, 'TiendaMPRO/CommitPago.html',context)
     # return render(request, 'TiendaMPRO/CommitPago.html')
