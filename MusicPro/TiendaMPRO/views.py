@@ -30,7 +30,11 @@ def Productos(request):
 def Pagar(request):
     producto =Producto.objects.all()
     context={'producto':producto}
+    total=0
     for pr in producto:
         precio=getattr(pr,"precio")
-        print(precio)
+        total+=precio
+        print('Precio: ',precio)
+
+    print('Total: ',total)
     return render(request,'TiendaMPRO/Pagar.html',context)
