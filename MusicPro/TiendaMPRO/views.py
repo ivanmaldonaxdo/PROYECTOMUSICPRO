@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from transbank.webpay.webpay_plus import response
 from .models import *
 import transbank.webpay.webpay_plus.transaction as tr
+import transbank.webpay.webpay_plus.deferred_transaction as df
 import random
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
@@ -8,6 +10,11 @@ from django.views.decorators.csrf import csrf_exempt
 def home(request):
     categ=Categoria.objects.all()
     context={'categ':categ}
+    # list_resp_comercio=[[-1,"Rechazo - Posible error en el ingreso de datos de la transacción"],
+    #                     [-2,"Rechazo - Se produjo fallo al procesar la transacción, este mensaje"+
+    #                     "de rechazo se encuentra relacionado a parámetros de la tarjeta y/o su cuenta asociada"],
+    #                     [-3,"Rechazo - Error en Transacción"	]]
+    # print(list_resp_comercio)
     return render(request, 'TiendaMPRO/home.html',context)
 
 def Productos(request):
@@ -54,6 +61,6 @@ def CommitPago(request):
     print("Token recibido dede Pago: ",token())
     response=tr.Transaction.commit(tk)
     context={'tk':tk,'respse':response}
-    print(response.response_code)
+    rpse_code=response.response_code
+    print(rpse_code)
     return render(request, 'TiendaMPRO/CommitPago.html',context)
-    # return render(request, 'TiendaMPRO/CommitPago.html')

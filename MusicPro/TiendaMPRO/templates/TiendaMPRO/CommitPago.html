@@ -3,22 +3,41 @@
 {% load static %}
 
 {% block contenido %}
+    <div class="commit-pago-content">
+        <h1>COMMIT TRANSBANK </h1>
+        <h5>Monto: {{respse.amount}}</h5>
+        <h5>Estado: {{respse.status}}</h5>
+        <h5>Orden De Compra: {{respse.buy_order}}</h5>
 
-<div class="commit-pago-content">
-    <h1>COMMIT TRANSBANK </h1>
-    <h5>Monto: {{respse.amount}}</h5>
-    <h5>Estado: {{respse.status}}</h5>
-    <h5>Orden De Compra: {{respse.buy_order}}</h5>
-
-    
-    {% ifequal respse.response_code 0 %} 
-        <h1>TRANSACCION APROBADA</h1>   
-    {% endifequal %}
-
-    {% ifnotequal respse.response_code 0  %}
-        <h1>TRANSACCION RECHAZADA</h1>  
-    {% endifnotequal %}
-            
-</div>
-<!-- div#content-wrapper. -->
+        <h1>TRANSACCION APROBADA</h1>  
+        {% ifequal respse 0 %}                 
+            <div class="tabla">
+                <table>
+                    <caption>detalle de transacción</caption>
+                    <thead>
+                        <tr>
+                            <th>orden de compra</th>
+                            <th>código autorización</th>
+                            <th>número de tarjeta</th>
+                            <th>código autorización</th>
+                            <th>tipo de venta</th>
+                            <th>fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="orden de compra">{{respse.buy_order}}</td>
+                            <td data-label="monto">${{respse.amount}}</td>
+                            <td data-label="número de tarjeta">{{respse.amount}}</td>
+                            <td data-label="código autorización">{{respse.authorization_code}}</td>
+                            <td data-label="tipo de venta">{{respse.payment_type_code}}</td>
+                            <td data-label="fecha">{{respse.transaction_date}}</td>    
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endifequal %}
+  
+    </div>
 {% endblock %}
+
