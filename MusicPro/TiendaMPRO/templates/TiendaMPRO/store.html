@@ -1,0 +1,21 @@
+{% extends 'TiendaMPRO/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+	{% for producto in productos %}
+	<div class="col-lg-4">
+        <img class="thumbnail" src="{{producto.imageURL}}">
+		<div class="box-element product">
+            <h6>
+                <strong>{{producto.nom_prod}}</strong>
+            </h6>
+                <hr>
+                <button data-product={{producto.id}} data-action="agregar" class="btn btn-outline-secondary add-btn update-cart">Añadir al carro</button>
+		        <a class="btn btn-outline-success" href="#">Detalles</a>
+		        <h4 style="display: inline-block; float: right"><strong>${{producto.precio|floatformat:0}}</strong></h4>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}
