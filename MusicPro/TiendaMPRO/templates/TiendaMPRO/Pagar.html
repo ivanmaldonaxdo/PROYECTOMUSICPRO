@@ -11,13 +11,8 @@
     {% for pr in producto %}
         <article class="producto-box">
             <h4>{{pr.nom_prod}}</h4>
-            <!-- <label for=""</label> -->
             <img src= "{{ pr.imagen.url }}" alt="">
-            <!-- <div class="imagen">
-            </div>           -->
             <h5>${{pr.precio}} clp</h5>
-            <!-- <label for=""></label> -->
-
         </article>
     {% endfor %}
     </section>
@@ -25,8 +20,6 @@
         <input type="hidden" name="token_ws" value= {{response.token}} />
         <input class="btn btn-success btn-pagar" type="submit" value="Ir a pagar" />
     </form>
-    <h5>Token: {{response.token}}</h5>
-    <h5>URL {{response.url}}</h5>
 
 </div>
 <!-- div#content-wrapper. -->

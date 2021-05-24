@@ -138,8 +138,11 @@ p {
 }
 .btn-pagar{
   display: grid;
-  
-  /* justify-self: auto; */
+  margin-left:45%;
+}
+.btn-home{
+  display: grid;
+  margin-top: 20px;
   margin-left:45%;
 }
 .nav-lateral{

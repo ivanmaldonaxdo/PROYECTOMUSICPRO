@@ -5,19 +5,15 @@
 {% block contenido %}
     <div class="commit-pago-content">
         <h1>COMMIT TRANSBANK </h1>
-        <h5>Monto: {{respse.amount}}</h5>
-        <h5>Estado: {{respse.status}}</h5>
-        <h5>Orden De Compra: {{respse.buy_order}}</h5>
-
-        <h1>TRANSACCION APROBADA</h1>  
-        {% ifequal respse 0 %}                 
+        {% ifequal respse.response_code 0 %}
+            <h1>TRANSACCION APROBADA</h1>           
             <div class="tabla">
                 <table>
                     <caption>detalle de transacción</caption>
                     <thead>
                         <tr>
                             <th>orden de compra</th>
-                            <th>código autorización</th>
+                            <th>monto</th>
                             <th>número de tarjeta</th>
                             <th>código autorización</th>
                             <th>tipo de venta</th>
@@ -37,7 +33,11 @@
                 </table>
             </div>
         {% endifequal %}
-  
+        <form action="{% url 'home' %}" class="form-btn">
+            <button type="submit" class="btn btn-success btn-home">
+                Volver Inicio
+            </button>
+        </form>    
     </div>
 {% endblock %}
 
