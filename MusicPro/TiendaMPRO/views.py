@@ -1,8 +1,19 @@
-from django.shortcuts import render
+from django.http.response import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.views.generic.edit import FormView
 import json
-
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from .models import Usuario
+from .forms import FormularioRegistro, LoginUsuario
+from django.contrib.auth import (authenticate, logout ,login)
+from django.contrib import messages
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
 # import transbank.webpay.webpay_plus.transaction as tr
 # from transbank import transaccion_completa as tc
 # from transbank.common.integration_type import IntegrationType as it
@@ -13,6 +24,7 @@ import json
 
 def home(request):
     return render(request, 'TiendaMPRO/home.html')
+
 
 def store(request):
     if request.user.is_authenticated:
@@ -31,15 +43,23 @@ def store(request):
 
 def cart(request):
 
+    #Buscar el carro del sujeto
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
         items = order.productopedido_set.all()
         itemsCarrito = order.get_carro_productos
     else:
+        #llamar el carrito almacenado en Cookies
         items = []
         order= {'get_total_carro': 0, 'get_carro_productos': 0}
+
+        #Actualizar el icono del carro
         itemsCarrito = order['get_carro_productos']
+
+        #Loop para leer los productos creados en el carrito de Cookies
+
+
     context = {'items': items, 'order': order, 'itemsCarrito': itemsCarrito}
     return render(request, 'TiendaMPRO/cart.html', context)
 
@@ -93,3 +113,33 @@ def Productos(request):
                 context={'categ':categ,"subCateg":subCateg,"tipoProd":tipoProd,"producto":producto}
                 print(context)  
     return render(request, 'TiendaMPRO/Productos.html',context)
+
+
+
+#Registro de usuarios
+
+class RegistrarUsuario(CreateView):
+     model = Usuario
+     form_class = FormularioRegistro
+     template_name = 'TiendaMPRO/registrar.html'
+     success_url = reverse_lazy('store')
+
+# class Login(FormView):
+#     template_name = 'login.html'
+#     form_class = LoginUsuario
+#     success_url = reverse_lazy('store')
+
+#     @method_decorator(csrf_protect)
+#     @method_decorator(never_cache)
+#     def dispatch(self, request, *args, **kwargs):
+#         if request.user.is_authenticated:
+#             return HttpResponseRedirect(self.get_success_url())
+#         else:
+
+
+
+
+
+
+
+

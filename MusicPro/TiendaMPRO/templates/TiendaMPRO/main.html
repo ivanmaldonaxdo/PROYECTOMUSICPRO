@@ -26,16 +26,16 @@
             </li>
             
           </ul>
-          
-          <div class="form-inline my-2 my-lg-0">
-                   <a href="#"class="btn btn-warning">Login</a>
-                    
-                   <a href="{% url 'cart' %}">
-                     <img  id="cart-icon" src="{% static 'image/cart.png' %}">
-                   </a>
-                  <p id="cart-total">{{itemsCarrito}}</p>
-           
-               </div>
+          {% if user.is_authenticated %}
+            <div class="form-inline my-2 my-lg-0">
+                      
+                <a href="{% url 'cart' %}">
+                <img  id="cart-icon" src="{% static 'image/cart.png' %}">
+                </a>
+                <p id="cart-total">{{itemsCarrito}}</p>
+            
+            </div>
+          {% endif %}
         </div>
       </nav>
     <div class="container">
@@ -56,6 +56,8 @@
 
   <script type="text/javascript"> 
       var user ='{{request.user}}' 
+
+
       function getToken(name) {
       let cookieValue = null;
       if (document.cookie && document.cookie !== '') {
@@ -66,12 +68,33 @@
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
+                }
+              }
             }
+            return cookieValue;
+          }
+          const csrftoken = getToken('csrftoken');
+
+        function getCookie(name){
+        var cookieArr = document.cookie.split(";");
+
+        for(var i = 0; i<cookieArr.length; i++){
+          var cookiePair = cookieArr[i].split("=");
+
+          if(name == cookiePair[0].trim()){
+            return decodeURIComponent(cookiePair[1]);
+          }
         }
-    }
-    return cookieValue;
-}
-const csrftoken = getToken('csrftoken');
-      </script>
+        return null;
+        }
+
+      var cart = JSON.parse(getCookie('cart'))
+      if(cart == undefined){
+        cart={}
+        document.cookie='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+      }
+      
+
+</script>
 </body>
 </html>

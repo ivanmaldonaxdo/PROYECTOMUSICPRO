@@ -119,6 +119,16 @@ class OrdenDeCompra(models.Model):
         return total
 
     @property
+    def get_total_descuento(self):
+        orderitems = self.productopedido_set.all()
+        if (sum ([item.cantidad for item in orderitems])>=4):
+            total = sum([item.get_total for item in orderitems])-20000
+        else:
+            total = sum([item.get_total for item in orderitems])
+        
+        return total
+
+    @property
     def get_carro_productos(self):
         orderitems = self.productopedido_set.all()
         total = sum ([item.cantidad for item in orderitems])
