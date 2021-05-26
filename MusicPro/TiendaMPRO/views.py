@@ -84,10 +84,23 @@ def checkout(request):
         customer = request.user.customer
         order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
         items = order.productopedido_set.all()
+        total=order.get_total_descuento
+        currentUrl=request.build_absolute_uri()
+        url_sep=currentUrl.rsplit(sep="/" ,maxsplit=2)
+        retorno=url_sep[0] + '/CommitPago/'
+        session_id=random.randint(10000000,99999999)
+        #LLAMADA DE METODO | tr.Transaction.create() > DE TRANSBANK PARA REALIZAR UNA TRASNACCIÓN
+        response=tr.Transaction.create(order.id,session_id,total,retorno)
+        #SE DEFINE | def token() > COMO GLOBAL PARA QUE RETORNE TOKEN TBK Y SE LLAME EN OTRAS VISTAS
+        global token
+        def token(): 
+            return response.token
     else:
         items = []
         order= {'get_total_carro': 0, 'get_carro_productos': 0}
-    context = {'items': items, 'order': order}
+    
+    print("Token a Boton: ",response.token)
+    context = {'items': items, 'order': order,'response':response}
     return render(request, 'TiendaMPRO/checkout.html', context)
 
 def updateProducto(request):
@@ -174,9 +187,7 @@ def Pagar(request):
     orden_compra=random.randint(10000000,99999999)
     session_id=random.randint(10000000,99999999)
     response=tr.Transaction.create(orden_compra,session_id,total,retorno)
-    global token
-    def token():
-        return response.token
+    
     print("Token a enviar a Commit Pagar: ",token())
     context={'producto':producto,'response':response}
     return render(request,'TiendaMPRO/Pagar.html',context)
@@ -184,9 +195,6 @@ def Pagar(request):
 @csrf_exempt
 def CommitPago(request):
     tk= token()
-    print("Token recibido dede Pago: ",token())
     response=tr.Transaction.commit(tk)
     context={'tk':tk,'respse':response}
-    rpse_code=response.response_code
-    print(rpse_code)
     return render(request, 'TiendaMPRO/CommitPago.html',context)

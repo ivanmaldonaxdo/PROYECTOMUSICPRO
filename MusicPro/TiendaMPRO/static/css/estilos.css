@@ -240,6 +240,7 @@ p {
 }
 
 .tabla>table>caption{
+    font-family: monospace;
     caption-side: top;
     color: rgb(50, 167, 167);
     font-size: 28px;
@@ -257,6 +258,8 @@ p {
     font-size: 13px;
     padding: 8px;
     text-align: center;
+    font-family: monospace;
+
 }
 .tabla>table thead th{ 
     text-transform: uppercase;
