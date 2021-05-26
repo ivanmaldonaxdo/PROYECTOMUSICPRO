@@ -39,12 +39,12 @@ def home(request):
     #                     "de rechazo se encuentra relacionado a parámetros de la tarjeta y/o su cuenta asociada"],
     #                     [-3,"Rechazo - Error en Transacción"	]]
     # print(list_resp_comercio)
-    return render(request, 'TiendaMPRO/home.html',context)
+    return render(request, 'TiendaMPRO/login.html',context)
 
 
 def store(request):
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user
         order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
         items = order.productopedido_set.all()
         itemsCarrito = order.get_carro_productos
@@ -57,11 +57,12 @@ def store(request):
     context ={'productos' : productos, 'itemsCarrito' : itemsCarrito}
     return render(request, 'TiendaMPRO/store.html', context)
 
+
 def cart(request):
 
     #Buscar el carro del sujeto
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user
         order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
         items = order.productopedido_set.all()
         itemsCarrito = order.get_carro_productos
@@ -79,9 +80,10 @@ def cart(request):
     context = {'items': items, 'order': order, 'itemsCarrito': itemsCarrito}
     return render(request, 'TiendaMPRO/cart.html', context)
 
+
 def checkout(request):
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user
         order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
         items = order.productopedido_set.all()
     else:
@@ -90,12 +92,13 @@ def checkout(request):
     context = {'items': items, 'order': order}
     return render(request, 'TiendaMPRO/checkout.html', context)
 
+
 def updateProducto(request):
     data = json.loads(request.body)
     productoId = data['productoId']
     action = data['action']
 
-    customer = request.user.customer
+    customer = request.user
     producto = Producto.objects.get(id=productoId)
     order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
     productoPedido, created = ProductoPedido.objects.get_or_create(orden=order, producto=producto)
@@ -138,19 +141,24 @@ class RegistrarUsuario(CreateView):
      model = Usuario
      form_class = FormularioRegistro
      template_name = 'TiendaMPRO/registrar.html'
-     success_url = reverse_lazy('store')
+     success_url = reverse_lazy('login')
 
-# class Login(FormView):
-#     template_name = 'login.html'
-#     form_class = LoginUsuario
-#     success_url = reverse_lazy('store')
+class Login(FormView):
+    template_name = 'TiendaMPRO/login.html'
+    form_class = LoginUsuario
+    success_url = reverse_lazy('store')
 
-#     @method_decorator(csrf_protect)
-#     @method_decorator(never_cache)
-#     def dispatch(self, request, *args, **kwargs):
-#         if request.user.is_authenticated:
-#             return HttpResponseRedirect(self.get_success_url())
-#         else:
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return super(Login, self).dispatch(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        login(self.request,form.get_user())
+        return super(Login,self).form_valid(form)
 
 
 

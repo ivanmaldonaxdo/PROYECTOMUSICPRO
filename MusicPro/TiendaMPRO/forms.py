@@ -62,7 +62,7 @@ class FormularioRegistro(forms.ModelForm):
 class LoginUsuario(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(LoginUsuario, self).__init__(*args, **kwargs)
-        self.fields['email'].widget.attrs['class'] = 'form-control'
-        self.fields['email'].widget.attrs['placeholder'] = 'Ingrese su correo'
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'Ingrese su correo'
         self.fields['password'].widget.attrs['class'] = 'form-control'
         self.fields['password'].widget.attrs['placeholder'] = 'Contraseña'

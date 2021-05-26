@@ -55,7 +55,9 @@ class Usuario(AbstractBaseUser):
         return self.usuario_admin
 
 class Customer(models.Model):
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, null=True, blank=True)
+
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name = 'customer', null=True, blank=True)
+
     nombre = models.CharField(max_length=200, null=True)
     correo = models.CharField(max_length=200, null=True)
 
@@ -103,7 +105,7 @@ class Producto(models.Model):
 
 
 class OrdenDeCompra(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    customer = models.ForeignKey(Usuario, on_delete=models.SET_NULL, blank=True, null=True)
     date_orderd= models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
     retiroTienda = models.BooleanField(default=False, null=True, blank=False)

@@ -1,10 +1,10 @@
 from django.conf.urls import include, url
 from . import views
-from .views import home, RegistrarUsuario
+from .views import home, RegistrarUsuario, Login
 from django.urls import path
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('', Login.as_view(), name='login'),
     url(r'^Productos/$', views.Productos, name="Productos"),
     url(r'^Pagar/$', views.Pagar, name="Pagar"),
     url(r'^CommitPago/$', views.CommitPago, name="CommitPago"),
@@ -15,5 +15,5 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),
     path('update_producto/', views.updateProducto, name='update_producto'),
     path('registrar/', RegistrarUsuario.as_view(), name='registrar'),
-    path('login/',views.LoginUsuario, name="login" ),
+    path('login/',Login.as_view(), name="login" ),
 ]
