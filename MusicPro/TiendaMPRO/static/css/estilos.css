@@ -124,6 +124,150 @@ p {
     padding: 4rem 0;
     text-align: center;
 }
+.pago-content,.commit-pago-content{
+  margin-top: 100px;
+  /* background-color:rgb(23, 23, 189); */
+  background-color:orange;
+  height: 1000px;
+}
+.pago-content>h1,.commit-pago-content>h1{
+  padding-top: 25px;
+  font-weight: bold;
+  text-align: center;
+  font-family: monospace;
+  color: white;
+}
+.btn-pagar{
+  display: grid;
+  margin-left:45%;
+}
+.btn-home{
+  display: grid;
+  margin-top: 20px;
+  margin-left:45%;
+}
+.nav-lateral{
+  background-color: blue;
+  /* right: 100%; */
+  width: 50%;
+  height: auto;
+  margin: 1000px 0;
+  transition: 0.9s;
+  z-index: 10000;
+
+}
+.nav-lateral>ul{
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  z-index: 20000;
+  padding: 0;
+  color: white;
+
+}
+.nav-lateral>ul>li{
+  display: inline-block;
+  color: white;
+  /* background-color: #1D1D28; */
+  line-height: 15px;
+
+}
+.nav-lateral>ul>li>a{
+  padding: 12px;
+  color: white;
+  font-size: 21.8px;
+  text-decoration: none;
+  font-family: Arial;
+  display: block;
+  text-align: center;
+  /* font-family: "Nunito"; */
+  padding-block: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+
+.padre-producto{
+  margin-top: 160px;
+  margin-left: 300px;
+  grid-template-columns: repeat(3, 250px);
+  display: grid;
+  /* padding-bottom: 325px; */
+  column-gap: 40px;
+  /* gap: 200px 1px; */
+
+}
+.producto-box{
+  /* margin-top: 60px; */
+  width: 195px;
+  height: 310px;
+  color: rgb(19, 9, 9);
+  /* background-color: blue; */
+  display: grid;
+}
+.producto-box>img{
+  height: 100%;
+  width: 100%;
+  border: 2px solid black;
+  clear: both;
+}
+
+
+
+.producto-box>h4,.producto-box>h5{
+  text-align: center;
+  color: white;
+}
+.producto-box>h4{
+  font-size: 20px;
+}
+.producto-box>h5{
+  margin-top: 10px;
+}
+/* tabla para mostrar detalle de compra */
+
+.tabla{
+    margin-top:100px;
+    display: grid;
+    /* grid-template-rows: repeat(2,1fr); */
+}
+
+.tabla>table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    width: 80%;
+    justify-self: center;
+
+}
+
+.tabla>table>caption{
+    caption-side: top;
+    color: rgb(50, 167, 167);
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tabla>table tr{
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+}
+
+.tabla>table th,.tabla>table td{
+    font-size: 13px;
+    padding: 8px;
+    text-align: center;
+}
+.tabla>table thead th{ 
+    text-transform: uppercase;
+    background-color:rgb(50, 167, 167);
+
+}
+
+.tabla>table tbody td:hover{
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 
 @media only screen and (max-width: 767px) {
     
@@ -314,6 +458,42 @@ p {
     .main-content .box{
       margin: 5px 0;
     }
+    .tabla{
+        overflow-x:auto
+    }
+    .tabla>table{
+        border: 0px;
+    }
+    
+    .tabla>table caption{
+        font-size: 22px;
+    }
+    .tabla>table thead{
+        display: none;
+    }
+    .tabla>table tr{
+        margin-bottom: 8px;
+        border-bottom: 4px solid #ddd;
+        display: block;
+    }
+    .tabla>table th, .tabla>table td{
+        font-size: 12px;
+    }
+    .tabla>table td{
+        display: block;
+        border-bottom: 1px solid #ddd;
+        text-align: right;
+    }
+    .tabla>table  td:last-child{
+        border-bottom: 0px;
+    }
+    .tabla>table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+        float: left; 
+    }
+
   }
 
   a {
@@ -516,3 +696,4 @@ p {
     line-height: 1.4;
     word-spacing: 100vw;
   }
+  

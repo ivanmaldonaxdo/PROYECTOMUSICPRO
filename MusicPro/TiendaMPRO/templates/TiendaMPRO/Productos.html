@@ -1,0 +1,23 @@
+{% extends 'TiendaMPRO/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+<nav class="nav-lateral">
+    <ul>
+        
+        {% for cg in categ %}
+            <li><a href="">{{ cg.categ_name }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
+<!-- div#content-wrapper. -->
+<section class="padre-producto">
+    <article class="producto-box">
+        <h4></h4>
+        <img src="" alt="">
+        <h5></h5>
+
+    </article>
+</section>
+{% endblock %}

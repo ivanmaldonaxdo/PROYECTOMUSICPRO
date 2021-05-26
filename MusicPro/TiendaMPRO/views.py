@@ -2,6 +2,15 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from transbank.webpay.webpay_plus import response
+from .models import *
+import transbank.webpay.webpay_plus.transaction as tr
+import transbank.webpay.webpay_plus.deferred_transaction as df
+import random
+from django.views.decorators.csrf import csrf_exempt
+# Create your views here.
+
 from django.http import JsonResponse
 from django.views.generic.edit import FormView
 import json
@@ -23,7 +32,14 @@ from django.views.decorators.csrf import csrf_protect
 
 
 def home(request):
-    return render(request, 'TiendaMPRO/home.html')
+    categ=Categoria.objects.all()
+    context={'categ':categ}
+    # list_resp_comercio=[[-1,"Rechazo - Posible error en el ingreso de datos de la transacción"],
+    #                     [-2,"Rechazo - Se produjo fallo al procesar la transacción, este mensaje"+
+    #                     "de rechazo se encuentra relacionado a parámetros de la tarjeta y/o su cuenta asociada"],
+    #                     [-3,"Rechazo - Error en Transacción"	]]
+    # print(list_resp_comercio)
+    return render(request, 'TiendaMPRO/home.html',context)
 
 
 def store(request):
@@ -143,3 +159,34 @@ class RegistrarUsuario(CreateView):
 
 
 
+def Pagar(request):
+    producto =Producto.objects.all()
+    total=0
+    for pr in producto:
+        precio=getattr(pr,"precio")
+        total+=precio
+        print('Precio: ',precio)
+    print('Total: ',total)
+    currentUrl=request.build_absolute_uri()
+    url_sep=currentUrl.rsplit(sep="/" ,maxsplit=2)
+    retorno=url_sep[0] + '/CommitPago/'
+    print('Url A Retornar: ',retorno)
+    orden_compra=random.randint(10000000,99999999)
+    session_id=random.randint(10000000,99999999)
+    response=tr.Transaction.create(orden_compra,session_id,total,retorno)
+    global token
+    def token():
+        return response.token
+    print("Token a enviar a Commit Pagar: ",token())
+    context={'producto':producto,'response':response}
+    return render(request,'TiendaMPRO/Pagar.html',context)
+
+@csrf_exempt
+def CommitPago(request):
+    tk= token()
+    print("Token recibido dede Pago: ",token())
+    response=tr.Transaction.commit(tk)
+    context={'tk':tk,'respse':response}
+    rpse_code=response.response_code
+    print(rpse_code)
+    return render(request, 'TiendaMPRO/CommitPago.html',context)

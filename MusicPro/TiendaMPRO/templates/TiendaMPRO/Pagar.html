@@ -1,0 +1,27 @@
+{% extends 'TiendaMPRO/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<div class="pago-content">
+    <h1>PAGO TRANSBANK </h1>
+    
+    <section class="padre-producto">
+    {% for pr in producto %}
+        <article class="producto-box">
+            <h4>{{pr.nom_prod}}</h4>
+            <img src= "{{ pr.imagen.url }}" alt="">
+            <h5>${{pr.precio}} clp</h5>
+        </article>
+    {% endfor %}
+    </section>
+    <form method="post" action={{response.url}}>
+        <input type="hidden" name="token_ws" value= {{response.token}} />
+        <input class="btn btn-success btn-pagar" type="submit" value="Ir a pagar" />
+    </form>
+
+</div>
+<!-- div#content-wrapper. -->
+{% endblock %}
+
