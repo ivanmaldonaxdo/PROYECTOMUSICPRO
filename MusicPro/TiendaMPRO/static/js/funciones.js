@@ -11,6 +11,8 @@ function main() {
                     $('.info-retiro').hide();
                     console.log('ENVIO DESPLEGADO');
                     checkeado = false;
+                    /* SE DEVUELVE A FALSE PARA CONTINUAR CON LA LOGICA DE CLICKS Y REALIZAR 
+                    LO MISMO EXPLICADP ARRIBAB */
                 }else{
                     $('.info-envio').hide();
                     $('.info-retiro').show();
