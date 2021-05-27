@@ -2,6 +2,7 @@ from django.db import models
 # from django.utils import timezone
 from django.core.validators import MinLengthValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.utils import timezone
 
 
 class UsuarioManager(BaseUserManager):
@@ -32,7 +33,7 @@ class UsuarioManager(BaseUserManager):
 
 
 class Usuario(AbstractBaseUser):
-    email = models.EmailField('Correo Electronico', max_length=100, unique=True)
+    email = models.EmailField('Correo Electronico', max_length=100, unique=True,)
     nombre = models.CharField('Nombre', max_length=100, null=True)
     usuario_activo= models.BooleanField(default=True)
     usuario_admin = models.BooleanField(default=False)
@@ -43,6 +44,7 @@ class Usuario(AbstractBaseUser):
 
     def __str__(self):
         return f'{self.nombre}'
+
 
     def has_perm(self,perm,obj = None):
         return True
@@ -152,3 +154,13 @@ class DireccionDeEnvio(models.Model):
 
     def __str__(self):
         return self.direccion
+
+
+class EstrategiaDeVenta(models.Model):
+    user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=200)
+    estrategia = models.TextField(max_length=1500,null=True,blank=True)
+    fecha_creacion_modificacion = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return self.titulo + ' | ' + str(self.user.nombre)

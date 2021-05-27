@@ -1,0 +1,35 @@
+{% extends 'TiendaMPRO/main.html' %}
+{% load static %}
+
+{% block content %}
+<div>
+    <br>
+    <div class="card blockquote text-center" >
+        <br>
+        <h4>PROXIMAS NOVEDADES</h4>
+        <br>
+    </div>
+    {% if user.is_staff %}
+        <a  class="btn btn-outline-dark" href="#">Agregar Estrategia</a>
+    {% endif %}
+    <br>
+    <br>
+        {% for e in est %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="display-5 ">{{e.titulo}}</h5>
+                <br>
+                {{e.estrategia}}
+                <br>
+                <br>
+                <a  class="btn btn-outline-dark" href="{% url 'store' %}">Ir a la tienda</a>
+                {% if user.is_staff %}
+                    <a  class="btn btn-outline-dark" href="#">Eliminar</a>
+                {% endif %}
+            </div>
+            
+        </div>
+        {% endfor %}
+    
+</div>
+{% endblock %}

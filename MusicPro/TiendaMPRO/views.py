@@ -12,11 +12,11 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 from django.http import JsonResponse, request
-from django.views.generic.edit import FormView
+from django.views.generic.edit import DeleteView, FormView
 import json
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from .models import Usuario
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
+from .models import Usuario, EstrategiaDeVenta
 from .forms import FormularioRegistro, LoginUsuario
 from django.contrib.auth import (authenticate, logout ,login)
 from django.contrib import messages
@@ -228,4 +228,15 @@ def CommitPago(request):
 
         
     
+def Estrategia(request):
+    estrategias = EstrategiaDeVenta.objects.all()
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
+        itemsCarrito = order.get_carro_productos
+    else:
+        order= {'get_total_carro': 0, 'get_carro_productos': 0}
+        itemsCarrito = order['get_carro_productos']
+    context ={'itemsCarrito' : itemsCarrito, 'est': estrategias}
+    return render(request, 'TiendaMPRO/estrategias.html', context)
 
