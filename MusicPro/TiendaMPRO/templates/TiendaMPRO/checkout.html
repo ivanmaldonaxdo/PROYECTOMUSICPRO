@@ -3,14 +3,6 @@
 {% block content %}
      <div class="row">
 		<div class="col-lg-6">
-
-			<div class="box-element" id="payment-info">
-				<p>Opciones de pago</p>
-				<form method="post" action={{response.url}}>
-					<input type="hidden" name="token_ws" value= {{response.token}} />
-					<input class="btn btn-success btn-pagar" type="submit" value="Pago Transbank" />
-				</form>
-			</div>
 			<br>
 			<div class="box-element" id="form-wrapper">
 				<form id="form" >
@@ -22,8 +14,14 @@
 							<input required class="form-control" type="email" name="email" placeholder="Email..">
 						</div>
 					</div>
-					
-					<div id="shipping-info">
+					<hr>	
+					<!-- CHECKBOX PARA FORMA DE RETIRO -->
+					<div id="shipping-info" class="form-field">
+						<label for="retiro">Forma de Retiro</label>
+						<input type="checkbox" name="retiro" id="entrega" checked>
+					</div>
+					<!-- FORMULARIO EN CASO DE ENVIO -->
+					<div id="shipping-info" class="info-envio">
 						<hr>
 						<p>Informacion de envio:</p>
 						<hr>
@@ -43,12 +41,29 @@
 							<input class="form-control" type="text" name="country" placeholder="Pais..">
 						</div> 
 					</div>
-
+					<!-- FORMULARIO EN CASO DE RETIRO EN TIENDA -->
+					<div id="shipping-info" class="info-retiro" style="display: none;">
+						<hr>
+						<p>Informacion de retiro:</p>
+						<hr>
+						<div class="form-field">
+							<label for="tienda">Tienda</label>
+							<select title="Tienda" class="form-control" name="tienda"></select>
+						</div>
+					</div>	
 					<hr>
 					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continuar">
 				</form>
 			</div>
 			<br>
+			<!-- METODO DE PAGO -->
+			<div class="box-element" id="payment-info">
+				<p>Opciones de pago</p>
+				<form method="post" action={{response.url}}>
+					<input type="hidden" name="token_ws" value= {{response.token}} />
+					<input class="btn btn-success btn-block" type="submit" value="Pago Transbank" />
+				</form>
+			</div>
 		</div>
 
 		<div class="col-lg-6">
@@ -81,4 +96,5 @@
 <script type="text/javascript">
 
 </script>
+
 {% endblock content %}
