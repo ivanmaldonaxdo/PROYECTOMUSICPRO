@@ -14,26 +14,26 @@
                         <tr>
                             <th>orden de compra</th>
                             <th>monto</th>
-                            <th>número de tarjeta</th>
                             <th>código autorización</th>
                             <th>tipo de venta</th>
                             <th>fecha</th>
+                            <th>Id-Transaccion</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td data-label="orden de compra">{{respse.buy_order}}</td>
-                            <td data-label="monto">${{respse.amount}}</td>
-                            <td data-label="número de tarjeta">{{respse.card_detail}}</td>
+                            <td data-label="monto">${{respse.amount|floatformat:0}}</td>
                             <td data-label="código autorización">{{respse.authorization_code}}</td>
                             <td data-label="tipo de venta">{{respse.payment_type_code}}</td>
-                            <td data-label="fecha">{{respse.transaction_date}}</td>    
+                            <td data-label="fecha">{{respse.transaction_date}}</td>
+                            <td data-label="Id-Transaccion">{{order.transaction_id}}</td>     
                         </tr>
                     </tbody>
                 </table>
             </div>
         {% endifequal %}
-        <form action="{% url 'home' %}" class="form-btn">
+        <form action="{% url 'store' %}" class="form-btn">
             <button type="submit" class="btn btn-success btn-home">
                 Volver Inicio
             </button>

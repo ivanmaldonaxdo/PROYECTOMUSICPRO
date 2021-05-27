@@ -11,7 +11,7 @@ import random
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
-from django.http import JsonResponse
+from django.http import JsonResponse, request
 from django.views.generic.edit import FormView
 import json
 from django.urls import reverse_lazy
@@ -41,7 +41,7 @@ def home(request):
     # print(list_resp_comercio)
     return render(request, 'TiendaMPRO/login.html',context)
 
-
+@login_required
 def store(request):
     if request.user.is_authenticated:
         customer = request.user
@@ -57,7 +57,7 @@ def store(request):
     context ={'productos' : productos, 'itemsCarrito' : itemsCarrito}
     return render(request, 'TiendaMPRO/store.html', context)
 
-
+@login_required
 def cart(request):
 
     #Buscar el carro del sujeto
@@ -80,13 +80,14 @@ def cart(request):
     context = {'items': items, 'order': order, 'itemsCarrito': itemsCarrito}
     return render(request, 'TiendaMPRO/cart.html', context)
 
-
+@login_required
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user
         order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
         items = order.productopedido_set.all()
         total=order.get_total_descuento
+        itemsCarrito = order.get_carro_productos
         currentUrl=request.build_absolute_uri()
         url_sep=currentUrl.rsplit(sep="/" ,maxsplit=2)
         retorno=url_sep[0] + '/CommitPago/'
@@ -100,9 +101,10 @@ def checkout(request):
     else:
         items = []
         order= {'get_total_carro': 0, 'get_carro_productos': 0}
+        itemsCarrito = order['get_carro_productos']
     
     print("Token a Boton: ",response.token)
-    context = {'items': items, 'order': order,'response':response}
+    context = {'items': items, 'order': order,'response':response, 'itemsCarrito': itemsCarrito}
     return render(request, 'TiendaMPRO/checkout.html', context)
 
 
@@ -128,6 +130,7 @@ def updateProducto(request):
         productoPedido.delete()
 
     return JsonResponse('El item fue agregado', safe=False )
+
 
 
 def Productos(request):
@@ -173,6 +176,9 @@ class Login(FormView):
         login(self.request,form.get_user())
         return super(Login,self).form_valid(form)
 
+def logoutUsuario(request):
+    logout(request)
+    return HttpResponseRedirect('/TiendaMPRO/login/')
 
 
 
@@ -202,7 +208,24 @@ def Pagar(request):
 
 @csrf_exempt
 def CommitPago(request):
-    tk= token()
-    response=tr.Transaction.commit(tk)
-    context={'tk':tk,'respse':response}
+    transaction_id = random.randint(10000000,99999999)
+    try:
+        tk= token()
+        response=tr.Transaction.commit(tk)
+        if response.response_code == 0:
+            id_order = response.buy_order
+            order, created = OrdenDeCompra.objects.get_or_create(id=id_order, complete=False)
+            order.transaction_id = transaction_id
+            order.complete = True
+            order.save()
+        else:
+            print('El pago fue rechazado')
+    except:
+        print('El usuario rechazo la transaccion')
+
+    context={'tk':tk,'respse':response, 'order': order}
     return render(request, 'TiendaMPRO/CommitPago.html',context)
+
+        
+    
+

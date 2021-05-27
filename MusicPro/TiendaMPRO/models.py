@@ -53,16 +53,6 @@ class Usuario(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.usuario_admin
-
-class Customer(models.Model):
-
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name = 'customer', null=True, blank=True)
-
-    nombre = models.CharField(max_length=200, null=True)
-    correo = models.CharField(max_length=200, null=True)
-
-    def __str__(self):
-        return self.correo
     
 class Categoria(models.Model):
     categ_name = models.CharField(validators=[MinLengthValidator(3)],max_length=40,verbose_name="Categoria") 
@@ -120,6 +110,8 @@ class OrdenDeCompra(models.Model):
         total = sum([item.get_total for item in orderitems])
         return total
 
+    
+
     @property
     def get_total_descuento(self):
         orderitems = self.productopedido_set.all()
@@ -150,7 +142,7 @@ class ProductoPedido(models.Model):
         return total
 
 class DireccionDeEnvio(models.Model):
-    customer =  models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    customer =  models.ForeignKey(Usuario, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(OrdenDeCompra, on_delete=models.SET_NULL, blank=True, null=True)
     direccion = models.CharField(max_length=200, null=True)
     ciudad = models.CharField(max_length=200, null=True)
