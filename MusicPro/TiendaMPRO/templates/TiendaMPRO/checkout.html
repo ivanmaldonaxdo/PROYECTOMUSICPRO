@@ -89,10 +89,10 @@
 			<h5>Productos: {{order.get_carro_productos}}</h5>
 			<h5>Total: {{order.get_total_carro|floatformat:0}}</h5>
 			{% if user.is_authenticated %}
-			{% ifequal order.get_carro_productos 4 %}
-			<h5>Descuento Cliente: 20000</h5>
-			<h5>Precio Final: {{order.get_total_descuento|floatformat:0}}</h5>
-			{% endifequal %}
+				{% if order.get_carro_productos >= 4 %}
+					<h5>Descuento Cliente: 20000</h5>
+					<h5>Precio Final: {{order.get_total_descuento|floatformat:0}}</h5>
+				{% endif %}
 			{% endif %}
 
 		</div>
