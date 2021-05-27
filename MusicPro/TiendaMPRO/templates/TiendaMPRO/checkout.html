@@ -3,14 +3,6 @@
 {% block content %}
      <div class="row">
 		<div class="col-lg-6">
-
-			<div class="box-element" id="payment-info">
-				<p>Opciones de pago</p>
-				<form method="post" action={{response.url}}>
-					<input type="hidden" name="token_ws" value= {{response.token}} />
-					<input class="btn btn-success btn-pagar" type="submit" value="Pago Transbank" />
-				</form>
-			</div>
 			<br>
 			<div class="box-element" id="form-wrapper">
 				<form id="form" >
@@ -64,6 +56,14 @@
 				</form>
 			</div>
 			<br>
+			<!-- METODO DE PAGO -->
+			<div class="box-element" id="payment-info">
+				<p>Opciones de pago</p>
+				<form method="post" action={{response.url}}>
+					<input type="hidden" name="token_ws" value= {{response.token}} />
+					<input class="btn btn-success btn-block" type="submit" value="Pago Transbank" />
+				</form>
+			</div>
 		</div>
 
 		<div class="col-lg-6">
