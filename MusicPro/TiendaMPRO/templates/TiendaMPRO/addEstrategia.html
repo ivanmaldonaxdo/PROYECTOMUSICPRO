@@ -1,0 +1,18 @@
+{% extends 'TiendaMPRO/main.html' %}
+{% load static %}
+
+{% block content %}
+<div>
+    <div class="box-element">
+        <h4>Agregar Estrategias</h4>
+    </div>
+    <div class="box-element">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input id="form-button" class="btn btn-success btn-block" type="submit" value="Registrar">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

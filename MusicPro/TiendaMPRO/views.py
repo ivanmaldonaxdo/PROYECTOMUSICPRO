@@ -2,15 +2,9 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from transbank.webpay.webpay_plus import response
-from .models import *
 import transbank.webpay.webpay_plus.transaction as tr
-import transbank.webpay.webpay_plus.deferred_transaction as df
 import random
-from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
-
 from django.http import JsonResponse, request
 from django.views.generic.edit import DeleteView, FormView
 import json
@@ -22,12 +16,8 @@ from django.contrib.auth import (authenticate, logout ,login)
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
-# import transbank.webpay.webpay_plus.transaction as tr
-# from transbank import transaccion_completa as tc
-# from transbank.common.integration_type import IntegrationType as it
-# import random
-# from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect,csrf_exempt
+from .forms import FormEstrategiaVta
 # Create your views here.
 
 
@@ -240,3 +230,21 @@ def Estrategia(request):
     context ={'itemsCarrito' : itemsCarrito, 'est': estrategias}
     return render(request, 'TiendaMPRO/estrategias.html', context)
 
+# def AddEstrateg(request):
+#     if request.method == 'POST':
+#         form=FormEstrategiaVta(request.POST)
+#         if form.is_valid():
+#             post=form.save(commit=False)
+#             post.user=request.user
+#             post.fecha_creacion_modificacion=timezone.now()
+#             post.save()
+#             return redirect('estrategias')
+#         else:
+#             form=FormEstrategiaVta()
+#         return render(request,'TiendaMPRO/addEstrategia.html',{'form':form})
+
+class RegistraEstrateg(CreateView):
+    model=EstrategiaDeVenta
+    form_class=FormEstrategiaVta
+    template_name='TiendaMPRO/addEstrategia.html'
+    success_url=reverse_lazy('estrategias')

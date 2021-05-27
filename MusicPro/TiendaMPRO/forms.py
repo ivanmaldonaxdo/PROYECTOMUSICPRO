@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.forms import fields, widgets
-from .models import Usuario
+from .models import Usuario,EstrategiaDeVenta
 
 
 #Formulario de registro
@@ -66,3 +66,14 @@ class LoginUsuario(AuthenticationForm):
         self.fields['username'].widget.attrs['placeholder'] = 'Ingrese su correo'
         self.fields['password'].widget.attrs['class'] = 'form-control'
         self.fields['password'].widget.attrs['placeholder'] = 'Contraseña'
+
+class FormEstrategiaVta(forms.ModelForm):
+    class Meta:
+        model=EstrategiaDeVenta
+        fields=['titulo','estrategia']
+        widgets={
+            'titulo':forms.TextInput(attrs={'class':'form-control'}),
+            'estrategia':forms.TextInput(attrs={'class':'form-control'}),
+
+        }
+

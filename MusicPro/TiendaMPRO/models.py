@@ -157,10 +157,11 @@ class DireccionDeEnvio(models.Model):
 
 
 class EstrategiaDeVenta(models.Model):
-    user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=200)
     estrategia = models.TextField(max_length=1500,null=True,blank=True)
     fecha_creacion_modificacion = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return self.titulo + ' | ' + str(self.user.nombre)
+
+
