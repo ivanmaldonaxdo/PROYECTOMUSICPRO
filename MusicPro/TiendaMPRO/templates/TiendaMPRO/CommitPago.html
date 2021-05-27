@@ -33,6 +33,12 @@
                 </table>
             </div>
         {% endifequal %}
+        
+        {% ifnotequal  respse.response_code 0 %}
+            <h1>TRANSACCION RECHAZADA...VUELVA AL INICIO</h1>           
+        {% endifnotequal %}
+            
+
         <form action="{% url 'store' %}" class="form-btn">
             <button type="submit" class="btn btn-success btn-home">
                 Volver Inicio

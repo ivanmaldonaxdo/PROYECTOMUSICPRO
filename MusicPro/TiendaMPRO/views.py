@@ -210,10 +210,11 @@ def CommitPago(request):
             order.save()
         else:
             print('El pago fue rechazado')
+        context={'tk':tk,'respse':response, 'order': order}
+
     except:
         print('El usuario rechazo la transaccion')
-
-    context={'tk':tk,'respse':response, 'order': order}
+        context={}
     return render(request, 'TiendaMPRO/CommitPago.html',context)
 
         
