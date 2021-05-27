@@ -231,19 +231,6 @@ def Estrategia(request):
     context ={'itemsCarrito' : itemsCarrito, 'est': estrategias}
     return render(request, 'TiendaMPRO/estrategias.html', context)
 
-# def AddEstrateg(request):
-#     if request.method == 'POST':
-#         form=FormEstrategiaVta(request.POST)
-#         if form.is_valid():
-#             post=form.save(commit=False)
-#             post.user=request.user
-#             post.fecha_creacion_modificacion=timezone.now()
-#             post.save()
-#             return redirect('estrategias')
-#         else:
-#             form=FormEstrategiaVta()
-#         return render(request,'TiendaMPRO/addEstrategia.html',{'form':form})
-
 class RegistraEstrateg(CreateView):
     model=EstrategiaDeVenta
     form_class=FormEstrategiaVta
