@@ -6,7 +6,38 @@
 
 <div class="pago-content">
     <h1>PAGO TRANSBANK </h1>
-    
+    <div class="form-group col-md-6">
+        <!-- OPCIONES DE FILTRO -->
+        <form action="" method="get" id="form">
+            
+            <div class="form-field">
+                <label for="cbocategoria">Categoria:</label>
+                <select class="form-control" name="cbocategoria" id="cbocategoria">
+                    <option value="">Seleccionar</option>
+                    {% for c in categ %}
+                    <option value="{{ c.categ_name }}">{{ c.categ_name }}</option>
+                    {% endfor %}
+                </select>
+             
+            </div>
+            <div class="form-field">
+                <select class="form-control" name="cbosubcateg" id="cbosubcateg">
+                    <option value="">Seleccionar</option>
+                    {% for s in subcateg %}
+                    <option value="{{ s.sub_categ_name }}">{{ s.sub_categ_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-field">
+                <label for="busqueda">Busqueda:</label>
+                <input type="search" name="busqueda" id="">
+            </div>
+        
+            <!--  -->
+            <button class="btn btn-success" type="submit">Buscar</button>
+        </form>
+     
+    </div>
     <section class="padre-producto">
     {% for pr in producto %}
         <article class="producto-box">

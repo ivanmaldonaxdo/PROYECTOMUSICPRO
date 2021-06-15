@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
@@ -18,17 +19,13 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect,csrf_exempt
 from .forms import FormEstrategiaVta
+from django.db.models import Q
 # Create your views here.
 
 
 def home(request):
     categ=Categoria.objects.all()
     context={'categ':categ}
-    # list_resp_comercio=[[-1,"Rechazo - Posible error en el ingreso de datos de la transacción"],
-    #                     [-2,"Rechazo - Se produjo fallo al procesar la transacción, este mensaje"+
-    #                     "de rechazo se encuentra relacionado a parámetros de la tarjeta y/o su cuenta asociada"],
-    #                     [-3,"Rechazo - Error en Transacción"	]]
-    # print(list_resp_comercio)
     return render(request, 'TiendaMPRO/login.html',context)
 
 @login_required
@@ -43,8 +40,10 @@ def store(request):
         order= {'get_total_carro': 0, 'get_carro_productos': 0}
         itemsCarrito = order['get_carro_productos']
 
+    categ=Categoria.objects.all()
+
     productos = Producto.objects.all()
-    context ={'productos' : productos, 'itemsCarrito' : itemsCarrito}
+    context ={'productos' : productos, 'itemsCarrito' : itemsCarrito,'categ':categ}
     return render(request, 'TiendaMPRO/store.html', context)
 
 @login_required
@@ -170,19 +169,36 @@ def logoutUsuario(request):
     logout(request)
     return HttpResponseRedirect('/TiendaMPRO/login/')
 
-
-
-
-
-
-
 def Pagar(request):
-    producto =Producto.objects.all()
-    total=0
-    for pr in producto:
-        precio=getattr(pr,"precio")
-        total+=precio
-        print('Precio: ',precio)
+    print(request.GET)
+    queryset=request.GET.get("busqueda")
+    q_categoria=request.GET.get("cbocategoria")
+    print(queryset)
+    print(q_categoria)
+    categ=Categoria.objects.all()
+    subcateg=SubCategoria.objects.none()
+    total=25000
+    if queryset:
+        producto=Producto.objects.filter(
+        Q(nom_prod__icontains=queryset)
+        )
+
+    # elif q_categoria:
+    #     ct=Categoria.objects.filter(
+    #         Q(categ_name=q_categoria)
+    #     )
+    #     print("QuerySet Categoria ",ct)
+    #     subcateg=SubCategoria.objects.filter(
+    #         categoria=ct).select_related('categoria')
+
+    #     producto =Producto.objects.all()
+
+    else:
+        producto =Producto.objects.all()
+   
+        # tiproduct=TipoProducto.objects.all()
+
+    #    total=getattr(producto,"precio")
     print('Total: ',total)
     currentUrl=request.build_absolute_uri()
     url_sep=currentUrl.rsplit(sep="/" ,maxsplit=2)
@@ -192,8 +208,8 @@ def Pagar(request):
     session_id=random.randint(10000000,99999999)
     response=tr.Transaction.create(orden_compra,session_id,total,retorno)
     
-    print("Token a enviar a Commit Pagar: ",token())
-    context={'producto':producto,'response':response}
+    # print("Token a enviar a Commit Pagar: ",token())
+    context={'producto':producto,'response':response,'categ':categ,'subcateg':subcateg}
     return render(request,'TiendaMPRO/Pagar.html',context)
 
 @csrf_exempt

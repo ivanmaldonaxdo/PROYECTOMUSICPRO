@@ -3,6 +3,22 @@
 
 {% block content %}
 <div class="row">
+	<div class="col-lg-12">
+		<div class="box-element" id="payment-info">
+			<p>Opciones de pago</p>
+			<form method="get">
+				<label for="cbocategoria">Categoria:</label>
+				<select class="form-select primary"  size="1" name="cbocategoria" id="cbocategoria" required >
+					<option value="">Seleccionar</option>
+					{% for c in categ %}
+					<option value="{{ c.categ_name }}">{{ c.categ_name }}</option>
+					{% endfor %}
+				</select>
+				<!--  -->
+				<button class="btn btn-success" type="submit">Buscar</button>
+			</form>
+		</div>
+	</div>
 	{% for producto in productos %}
 	<div class="col-lg-4">
         <img class="thumbnail" src="{{producto.imageURL}}">
