@@ -9,22 +9,21 @@
     <div class="form-group col-md-6">
         <!-- OPCIONES DE FILTRO -->
         <form action="" method="get" id="form">
-            
             <div class="form-field">
                 <label for="cbocategoria">Categoria:</label>
                 <select class="form-control" name="cbocategoria" id="cbocategoria">
                     <option value="">Seleccionar</option>
                     {% for c in categ %}
-                    <option value="{{ c.categ_name }}">{{ c.categ_name }}</option>
+                    <option value="{{ c.id }}">{{ c.categ_name }}</option>
                     {% endfor %}
                 </select>
-             
+
             </div>
             <div class="form-field">
                 <select class="form-control" name="cbosubcateg" id="cbosubcateg">
                     <option value="">Seleccionar</option>
                     {% for s in subcateg %}
-                    <option value="{{ s.sub_categ_name }}">{{ s.sub_categ_name }}</option>
+                    <option value="{{ s.id }}">{{ s.sub_categ_name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -32,27 +31,60 @@
                 <label for="busqueda">Busqueda:</label>
                 <input type="search" name="busqueda" id="">
             </div>
-        
+
             <!--  -->
             <button class="btn btn-success" type="submit">Buscar</button>
         </form>
-     
+
     </div>
     <section class="padre-producto">
-    {% for pr in producto %}
+        {% for pr in producto %}
         <article class="producto-box">
             <h4>{{pr.nom_prod}}</h4>
-            <img src= "{{ pr.imagen.url }}" alt="">
+            <img src="{{ pr.imagen.url }}" alt="">
             <h5>${{pr.precio}} clp</h5>
         </article>
-    {% endfor %}
+        {% endfor %}
     </section>
     <form method="post" action={{response.url}}>
-        <input type="hidden" name="token_ws" value= {{response.token}} />
+        <input type="hidden" name="token_ws" value={{response.token}} />
         <input class="btn btn-success btn-pagar" type="submit" value="Ir a pagar" />
     </form>
 
 </div>
 <!-- div#content-wrapper. -->
-{% endblock %}
+<script>
+    $(function () {
+        $('select[name="cbocategoria"]').on('change', function () {
+            var id = $(this).val();
+            // var titulo= $(this).selector();
+            console.log("PROBANDO ID DE CATEGORIA : ", id, " -Es la id");
+            // alert(id)
+            // $.ajax({
+            //     url: window.location.pathname,
+            //     type: "POST",
+            //     data: {
+            //         'action': 'display_subcateg',
+            //         'id': id
+            //     },
+            //     dataType: 'json'
+            // }).done(function (data) {
+            //     console.log(data);
+            //     if (!data.hasOwnProperty('error')) {
+            //         console.log(data);
+            //         // $.each(data, function (key, value) {
+            //         //     options += '<option value="' + value.id + '">' + value.name + '</option>';
+            //         // });
+            //         return false;
+            //     }
+            //     message_error(data.error);
 
+            // }).fail(function (jqXHR, textStatus, errorThrown) {
+            //     alert(textStatus + ': ' + errorThrown);
+            // }).always(function (data) {
+            //     // select_products.html(options);
+            // });
+        })
+    });
+</script>
+{% endblock %}

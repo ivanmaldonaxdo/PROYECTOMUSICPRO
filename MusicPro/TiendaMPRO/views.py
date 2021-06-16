@@ -169,6 +169,7 @@ def logoutUsuario(request):
     logout(request)
     return HttpResponseRedirect('/TiendaMPRO/login/')
 
+@csrf_exempt
 def Pagar(request):
     print(request.GET)
     queryset=request.GET.get("busqueda")
@@ -183,22 +184,30 @@ def Pagar(request):
         Q(nom_prod__icontains=queryset)
         )
 
-    # elif q_categoria:
-    #     ct=Categoria.objects.filter(
-    #         Q(categ_name=q_categoria)
-    #     )
-    #     print("QuerySet Categoria ",ct)
-    #     subcateg=SubCategoria.objects.filter(
-    #         categoria=ct).select_related('categoria')
-
-    #     producto =Producto.objects.all()
-
     else:
         producto =Producto.objects.all()
-   
+        # subcateg=SubCategoria.objects.filter(id=1)
+        print(subcateg)
         # tiproduct=TipoProducto.objects.all()
 
     #    total=getattr(producto,"precio")
+
+    data={}
+    try:
+        action=request.POST['action']
+        if action ==  'display_subcateg':
+            data=[]
+            for i in SubCategoria.objects.filter(id=request.POST['id']):
+                data.append(i.toJSON())
+                
+            print(data)
+        else:
+            data['error']='Ha ocurrido un error'        
+    except Exception as e:
+        data['error']=str(e)
+    # jr=JsonResponse(data,safe=False)
+
+    # return JsonResponse(data,safe=False)
     print('Total: ',total)
     currentUrl=request.build_absolute_uri()
     url_sep=currentUrl.rsplit(sep="/" ,maxsplit=2)
@@ -211,6 +220,7 @@ def Pagar(request):
     # print("Token a enviar a Commit Pagar: ",token())
     context={'producto':producto,'response':response,'categ':categ,'subcateg':subcateg}
     return render(request,'TiendaMPRO/Pagar.html',context)
+    # ,JsonResponse(data,safe=False)
 
 @csrf_exempt
 def CommitPago(request):
