@@ -41,8 +41,14 @@ def store(request):
         itemsCarrito = order['get_carro_productos']
 
     categ=Categoria.objects.all()
+    queryset=request.GET.get("busqueda")
+    if queryset:
+        productos=Producto.objects.filter(
+        Q(nom_prod__icontains=queryset)
+    )
+    else:
+        productos = Producto.objects.all()
 
-    productos = Producto.objects.all()
     context ={'productos' : productos, 'itemsCarrito' : itemsCarrito,'categ':categ}
     return render(request, 'TiendaMPRO/store.html', context)
 
