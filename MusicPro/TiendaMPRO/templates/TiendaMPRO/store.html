@@ -16,7 +16,7 @@
 				<!-- BUSQUEDA POR CBO_CATEG -->
 				<div class="form-field">
 					<label for="cbocateg">Categoria:</label>
-					<select class="form-select primary"  size="1" name="cbocateg" id="cbocategoria" >
+					<select class="form-select primary"  size="1" name="cbocateg" id="categoria" >
 						<option value="">Seleccionar</option>
 						{% for c in categ %}
 							<option value="{{ c.id }}">{{ c.categ_name }}</option>
@@ -26,10 +26,10 @@
 				<!-- BUSQUEDA POR CBO_SUBCATEG -->
 				<div class="form-field">
 					<label for="cbosubcateg">Sub-Categoria:</label>
-					<select class="form-select primary"  size="1" name="cbosubcateg" id="cbocategoria">
+					<select class="form-select primary"  size="1" name="cbosubcateg" id="subcategoria">
 						<option value="">Seleccionar</option>
 						{% for s in subcateg %}
-							<option value="{{ s.id }}">{{ s.sub_categ_name }}</option>
+							<option value="{{ s.id }}" data-chained="{{ s.categoria.id }}">{{ s.sub_categ_name }}</option>
 						{% endfor %}
 					</select>
 				</div>
