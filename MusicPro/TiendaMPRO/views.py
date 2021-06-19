@@ -44,17 +44,30 @@ def store(request):
     subcateg=SubCategoria.objects.all()
     tpProductos=TipoProducto.objects.all()
     queryset=request.GET.get("busqueda")
-    q_categ=request.GET.get('cbotipoproducto')
+    q_tipoprod= request.GET.get('cbotipoproducto')
+    q_subcateg=request.GET.get('cbosubcateg')
+    q_categ=request.GET.get('cbocateg')
+
     if queryset:
-        productos=Producto.objects.filter(
-            Q(nom_prod__icontains=queryset)
-        )
+        productos=Producto.objects.filter(Q(nom_prod__icontains=queryset))
         print("FILTRO POR NOM PRODUCTO: ")
-    elif q_categ:
-        productos=Producto.objects.filter(
-            Q(tipo_prod=q_categ)    
-        )
+    elif q_tipoprod:
+        productos=Producto.objects.filter(Q(tipo_prod=q_tipoprod))
         print("FILTRO POR TIPO PROD: ")
+
+    # elif q_subcateg:
+    #     print("FILTRO POR SUBCATEGORIA: ")
+    #     producto=[]
+    #     tipoProd=TipoProducto.objects.filter(Q(sub_categ=q_subcateg))
+    #     for tp in tipoProd:
+    #         producto.append(Producto.objects.filter(Q(tipo_prod=tp)))
+    #     print("Productos query: ",producto[0])
+    #     print("Productos OBJECT ALL: ",producto[0])
+
+    #     productos = Producto.objects.all()
+    # elif q_categ:
+    #     productos = Producto.objects.all()
+    #     print("FILTRO POR CATEGORIA: ")
     else:
         productos = Producto.objects.all()
         print("SIN FILTRO: ")
