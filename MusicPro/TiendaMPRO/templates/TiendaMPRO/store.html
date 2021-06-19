@@ -27,9 +27,19 @@
 				<div class="form-field">
 					<label for="cbosubcateg">Sub-Categoria:</label>
 					<select class="form-select primary"  size="1" name="cbosubcateg" id="subcategoria">
-						<option value="">Seleccionar</option>
+						<!-- <option value="">Seleccionar</option> -->
 						{% for s in subcateg %}
 							<option value="{{ s.id }}" data-chained="{{ s.categoria.id }}">{{ s.sub_categ_name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<!-- BUSQUEDA POR CBO_TIPOPRODUCTO -->
+				<div class="form-field">
+					<label for="cbotipoproducto">Tipo-Producto: </label>
+					<select class="form-select primary"  size="1" name="cbotipoproducto" id="tp_producto">
+						<!-- <option value="">Seleccionar</option> -->
+						{% for tp in tiposproducto %}
+							<option value="{{ tp.id }}" data-chained="{{ tp.sub_categ.id }}">{{ tp.tipo_name }}</option>
 						{% endfor %}
 					</select>
 				</div>

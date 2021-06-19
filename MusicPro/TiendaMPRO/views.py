@@ -42,15 +42,25 @@ def store(request):
 
     categ=Categoria.objects.all()
     subcateg=SubCategoria.objects.all()
+    tpProductos=TipoProducto.objects.all()
     queryset=request.GET.get("busqueda")
+    q_categ=request.GET.get('cbotipoproducto')
     if queryset:
         productos=Producto.objects.filter(
-        Q(nom_prod__icontains=queryset)
-    )
+            Q(nom_prod__icontains=queryset)
+        )
+        print("FILTRO POR NOM PRODUCTO: ")
+    elif q_categ:
+        productos=Producto.objects.filter(
+            Q(tipo_prod=q_categ)    
+        )
+        print("FILTRO POR TIPO PROD: ")
     else:
         productos = Producto.objects.all()
+        print("SIN FILTRO: ")
+        
 
-    context ={'productos' : productos, 'itemsCarrito' : itemsCarrito,'categ':categ,'subcateg':subcateg}
+    context = {'productos' : productos, 'itemsCarrito' : itemsCarrito,'categ':categ,'subcateg':subcateg,'tiposproducto':tpProductos}
     return render(request, 'TiendaMPRO/store.html', context)
 
 @login_required
