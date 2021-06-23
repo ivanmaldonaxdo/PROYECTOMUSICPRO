@@ -7,16 +7,16 @@
 		<div class="box-element" id="payment-info">
 			<p>Filtros de Busqueda</p>
 			<!-- FORM DE METODO GET -->
-			<form method="get">
+			<form method="get" id="filtro"> 
 				<!-- BUSQUEDA PRODUCTO POR NOMBRE -->
 				<div class="form-field">
 					<label for="busqueda">Busqueda:</label>
-					<input type="search" name="busqueda" id="" class="form-control" placeholder="Buscar">
+					<input type="search" name="busqueda" id="" class="form-control" placeholder="Buscar" value="{{ request.GET.busqueda }}">
 				</div>
 				<!-- BUSQUEDA POR CBO_CATEG -->
 				<div class="form-field">
 					<label for="cbocateg">Categoria:</label>
-					<select class="form-select primary"  size="1" name="cbocateg" id="categoria" >
+					<select class="form-select primary"  size="1" name="cbocateg" id="categoria">
 						<option value="">Seleccionar</option>
 						{% for c in categ %}
 							<option value="{{ c.id }}">{{ c.categ_name }}</option>
