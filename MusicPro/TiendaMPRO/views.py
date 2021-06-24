@@ -53,11 +53,16 @@ def store(request):
         productos=Producto.objects.filter(Q(nom_prod__icontains=queryset))
         print("FILTRO POR NOM PRODUCTO: ")
         q_searched=queryset
+        print(q_searched)
     elif q_tipoprod:
         productos=Producto.objects.filter(Q(tipo_prod=q_tipoprod))
         print("FILTRO POR TIPO PROD: ")
-        q_searched=q_tipoprod
-
+        # tp=TipoProducto.objects.filter(id=q_tipoprod)
+        q_searched=TipoProducto.objects.filter(Q(id=q_tipoprod))
+        q_searched=list(q_searched)[0]
+        # q_searched=q_searched.name
+        print(q_searched)
+        # print(tp)
     context = {'productos' : productos, 'itemsCarrito' : itemsCarrito,'categ':categ,'subcateg':subcateg,'tiposproducto':tpProductos,'q_searched':q_searched}
     return render(request, 'TiendaMPRO/store.html', context)
 
