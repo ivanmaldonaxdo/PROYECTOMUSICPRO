@@ -37,6 +37,9 @@ class Usuario(AbstractBaseUser):
     nombre = models.CharField('Nombre', max_length=100, null=True)
     usuario_activo= models.BooleanField(default=True)
     usuario_admin = models.BooleanField(default=False)
+    usuario_vend = models.BooleanField(default=False)
+    usuario_bodega = models.BooleanField(default=False)
+    usuario_contador = models.BooleanField(default=False)
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'email'

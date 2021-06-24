@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from . import views
 from django.contrib.auth.views import logout_then_login
-from .views import Estrategia, RegistrarUsuario, Login,RegistraEstrateg
+from .views import Estrategia, RegistrarUsuario, Login,RegistraEstrateg, Registrar_vendedor
 from django.urls import path
 
 urlpatterns = [
@@ -18,6 +18,7 @@ urlpatterns = [
     path('logout/', logout_then_login, name='logout_usuario'),
     path('estrategias/', views.Estrategia, name='estrategias'),
     path('addEstrategia/',RegistraEstrateg.as_view(), name='addEstrategia'),
+    path('registrar_trabajador/', Registrar_vendedor.as_view(), name='registrar_trabajador'),
 
 
 ]
