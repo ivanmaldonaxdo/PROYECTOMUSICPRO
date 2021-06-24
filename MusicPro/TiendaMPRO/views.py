@@ -46,27 +46,19 @@ def store(request):
     productos = Producto.objects.all()
     queryset=request.GET.get("busqueda")
     q_tipoprod= request.GET.get('cbotipoproducto')
+    q_searched=""
     q_subcateg=request.GET.get('cbosubcateg')
     q_categ=request.GET.get('cbocateg')
-
     if queryset:
         productos=Producto.objects.filter(Q(nom_prod__icontains=queryset))
         print("FILTRO POR NOM PRODUCTO: ")
+        q_searched=queryset
     elif q_tipoprod:
         productos=Producto.objects.filter(Q(tipo_prod=q_tipoprod))
         print("FILTRO POR TIPO PROD: ")
+        q_searched=q_tipoprod
 
-    # elif q_subcateg:
-    #     print("FILTRO POR SUBCATEGORIA: ")
-    #     producto=[]
-    #     tipoProd=TipoProducto.objects.filter(Q(sub_categ=q_subcateg))
-    #     for tp in tipoProd:
-    #         producto.append(Producto.objects.filter(Q(tipo_prod=tp)))
-    #     print("Productos query: ",producto[0])
-    #     print("Productos OBJECT ALL: ",producto[0])
-
-
-    context = {'productos' : productos, 'itemsCarrito' : itemsCarrito,'categ':categ,'subcateg':subcateg,'tiposproducto':tpProductos}
+    context = {'productos' : productos, 'itemsCarrito' : itemsCarrito,'categ':categ,'subcateg':subcateg,'tiposproducto':tpProductos,'q_searched':q_searched}
     return render(request, 'TiendaMPRO/store.html', context)
 
 @login_required
