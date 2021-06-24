@@ -161,4 +161,18 @@ h1,h2,h3,h4,h5,h6{
 .tabla>table tbody td:hover{
     background-color: rgba(0, 0, 0, 0.3);
 }
-
+#sin_prod{
+	margin-top: 50px;
+	width: 50ch;
+	text-align: center;
+	/* justify-self: center; */
+	text-justify: center;
+}
+#lbl_categ{
+	padding-right: 50px;
+}
+@media screen and (max-width: 400px) {
+	#sin_prod{
+		font-size: 20px;
+	}
+  }
