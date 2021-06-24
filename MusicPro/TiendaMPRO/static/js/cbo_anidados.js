@@ -4,11 +4,8 @@ function inicio() {
     $(function () {
         $('#subcategoria').chained('#categoria');
         $('#tp_producto').chained('#subcategoria');
+        //AJUSTE DE ANCHO EN CBOBOX POR DEFECTO
+        $('#subcategoria,#tp_producto').width("70%")
     });
-    //#endregion
-    //#region SUBMIT AL CAMBIAR DATO DE ENTRADA
-        // $('#buscar').on('change',function () {
-        //     $('filtro').submit();
-        // });
-    //#endregion
+ 
 };

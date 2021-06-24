@@ -12,7 +12,7 @@ function main() {
                     console.log('ENVIO DESPLEGADO');
                     checkeado = false;
                     /* SE DEVUELVE A FALSE PARA CONTINUAR CON LA LOGICA DE CLICKS Y REALIZAR 
-                    LO MISMO EXPLICADP ARRIBAB */
+                    LO MISMO EXPLICADO ARRIBA */
                 }else{
                     $('.info-envio').hide();
                     $('.info-retiro').show();
