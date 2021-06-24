@@ -77,3 +77,78 @@ class FormEstrategiaVta(forms.ModelForm):
 
         }
 
+class FormularioRegistroEmpleado(forms.ModelForm):
+
+    password1 = forms.CharField(label='Contraseña', widget = forms.PasswordInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Ingrese la contraseña',
+            'id': 'password1',
+            'required': 'required',
+        }
+    ))
+
+    password2 = forms.CharField(label='Repita la contraseña', widget = forms.PasswordInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Ingrese nuevamente la contraseña',
+            'id': 'password2',
+            'required': 'required',
+        }
+    ))
+
+    class Meta:
+        model = Usuario
+        fields = ('email', 'nombre', 'usuario_vend', 'usuario_bodega', 'usuario_contador')
+        # widgets= {
+        #     'email': forms.EmailInput(
+        #         attrs={
+        #             'class': 'form-control',
+        #             'placeholder': 'Ingrese su correo electronico'
+        #         }
+        #     ),
+        #     'nombre': forms.TextInput(
+        #         attrs={
+        #             'class': 'form-control',
+        #             'placeholder': 'Ingrese su nombre'
+        #         }
+        #     ),
+        #     'usuario_vend': forms.CheckboxInput(
+        #         attrs={
+        #             'class':'form-check-input',
+        #             'type':'radio', 
+        #             'name':'flexRadioDefault', 
+        #             'id':'flexRadioDefault1'
+        #         }
+        #     ),
+        #     'usuario_bodega': forms.CheckboxInput(
+        #         attrs={
+        #             'class':'form-check-input',
+        #             'type':'radio', 
+        #             'name':'flexRadioDefault', 
+        #             'id':'flexRadioDefault2'
+        #         }
+        #     ),
+        #     'usuario_contador': forms.CheckboxInput(
+        #         attrs={
+        #             'class':'form-check-input',
+        #             'type':'radio', 
+        #             'name':'flexRadioDefault', 
+        #             'id':'flexRadioDefault3'
+        #         }
+        #     )
+        # }
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 != password2:
+            raise forms.ValidationError('Las contraseñas no coinciden')
+        return password2
+
+    def save(self, commit = True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password1'])
+        if commit:
+            user.save()
+        return user

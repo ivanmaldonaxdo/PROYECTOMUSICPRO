@@ -18,7 +18,7 @@ from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect,csrf_exempt
-from .forms import FormEstrategiaVta
+from .forms import FormEstrategiaVta, FormularioRegistroEmpleado
 from django.db.models import Q
 # Create your views here.
 
@@ -277,3 +277,10 @@ class RegistraEstrateg(CreateView):
     form_class=FormEstrategiaVta
     template_name='TiendaMPRO/addEstrategia.html'
     success_url=reverse_lazy('estrategias')
+
+
+class Registrar_vendedor(CreateView):
+    model = Usuario
+    form_class = FormularioRegistroEmpleado
+    template_name = 'TiendaMPRO/registrar_trabajador.html'
+    success_url = reverse_lazy('registrar_trabajador.html')
