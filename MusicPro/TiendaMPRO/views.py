@@ -107,6 +107,20 @@ def checkout(request):
         global token
         def token(): 
             return response.token
+
+        #DEL FORM  CON METODO GET SE LE OBTIENE EL INPUT DE NOMBRE transferenciq 
+        q_transfer=request.GET.get("transferencia")
+        # print(transferencia)
+        #SI SE HACE Y VALIDA EL SUBMIT,SE ACTUALIZA ORDER.TRANSFERENCIA A TRUE    
+        if q_transfer:
+            order.transferencia = True
+            order.save()
+            print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A TRUE ")
+        else:            
+            order.transferencia = False
+            order.save()
+            print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A FALSE ")
+
     else:
         items = []
         order= {'get_total_carro': 0, 'get_carro_productos': 0}
