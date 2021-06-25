@@ -116,10 +116,6 @@ def checkout(request):
             order.transferencia = True
             order.save()
             print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A TRUE ")
-        else:            
-            order.transferencia = False
-            order.save()
-            print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A FALSE ")
 
     else:
         items = []
@@ -215,7 +211,9 @@ def CommitPago(request):
             order.transaction_id = transaction_id
             order.complete = True
             order.pagado = True
+            order.transferencia = False
             order.save()
+            print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A FALSE ")
         else:
             print('El pago fue rechazado')
         context={'tk':tk,'respse':response, 'order': order}
