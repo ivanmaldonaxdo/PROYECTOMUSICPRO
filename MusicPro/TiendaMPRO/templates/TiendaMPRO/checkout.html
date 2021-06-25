@@ -51,10 +51,20 @@
 		<!-- METODO DE PAGO -->
 		<div class="box-element" id="payment-info">
 			<p>Opciones de pago</p>
-			<form method="post" action={{response.url}}>
-				<input type="hidden" name="token_ws" value={{response.token}} />
-				<input class="btn btn-success btn-block" type="submit" value="Pago Transbank" />
-			</form>
+			<div class="form-field">
+				<form method="post" action={{response.url}}>
+					<input type="hidden" name="token_ws" value={{response.token}} />
+					<input class="btn btn-success btn-block" type="submit" value="Pago Transbank" />
+				</form>
+			</div>
+		
+			<div class="form-field">
+				<form method="get" action="">
+					<input type="hidden" name="transferencia" value = "no"/>
+					<input class="btn btn-success btn-block" type="submit" value="Pago Transferencia" />
+				</form>
+			</div>
+		
 		</div>
 	</div>
 

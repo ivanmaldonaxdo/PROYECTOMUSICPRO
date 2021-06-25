@@ -54,11 +54,16 @@ def store(request):
         productos=Producto.objects.filter(Q(nom_prod__icontains=queryset))
         print("FILTRO POR NOM PRODUCTO: ")
         q_searched=queryset
+        print(q_searched)
     elif q_tipoprod:
         productos=Producto.objects.filter(Q(tipo_prod=q_tipoprod))
         print("FILTRO POR TIPO PROD: ")
-        q_searched=q_tipoprod
-
+        # tp=TipoProducto.objects.filter(id=q_tipoprod)
+        q_searched=TipoProducto.objects.filter(Q(id=q_tipoprod))
+        q_searched=list(q_searched)[0]
+        # q_searched=q_searched.name
+        print(q_searched)
+        # print(tp)
     context = {'productos' : productos, 'itemsCarrito' : itemsCarrito,'categ':categ,'subcateg':subcateg,'tiposproducto':tpProductos,'q_searched':q_searched}
     return render(request, 'TiendaMPRO/store.html', context)
 
@@ -103,6 +108,16 @@ def checkout(request):
         global token
         def token(): 
             return response.token
+
+        #DEL FORM  CON METODO GET SE LE OBTIENE EL INPUT DE NOMBRE transferenciq 
+        q_transfer=request.GET.get("transferencia")
+        # print(transferencia)
+        #SI SE HACE Y VALIDA EL SUBMIT,SE ACTUALIZA ORDER.TRANSFERENCIA A TRUE    
+        if q_transfer:
+            order.transferencia = True
+            order.save()
+            print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A TRUE ")
+
     else:
         items = []
         order= {'get_total_carro': 0, 'get_carro_productos': 0}
@@ -186,59 +201,6 @@ def logoutUsuario(request):
     return HttpResponseRedirect('/TiendaMPRO/login/')
 
 @csrf_exempt
-def Pagar(request):
-    print(request.GET)
-    queryset=request.GET.get("busqueda")
-    q_categoria=request.GET.get("cbocategoria")
-    print(queryset)
-    print(q_categoria)
-    categ=Categoria.objects.all()
-    subcateg=SubCategoria.objects.none()
-    total=25000
-    if queryset:
-        producto=Producto.objects.filter(
-        Q(nom_prod__icontains=queryset)
-        )
-
-    else:
-        producto =Producto.objects.all()
-        # subcateg=SubCategoria.objects.filter(id=1)
-        print(subcateg)
-        # tiproduct=TipoProducto.objects.all()
-
-    #    total=getattr(producto,"precio")
-
-    data={}
-    try:
-        action=request.POST['action']
-        if action ==  'display_subcateg':
-            data=[]
-            for i in SubCategoria.objects.filter(id=request.POST['id']):
-                data.append(i.toJSON())
-                
-            print(data)
-        else:
-            data['error']='Ha ocurrido un error'        
-    except Exception as e:
-        data['error']=str(e)
-    # jr=JsonResponse(data,safe=False)
-
-    # return JsonResponse(data,safe=False)
-    print('Total: ',total)
-    currentUrl=request.build_absolute_uri()
-    url_sep=currentUrl.rsplit(sep="/" ,maxsplit=2)
-    retorno=url_sep[0] + '/CommitPago/'
-    print('Url A Retornar: ',retorno)
-    orden_compra=random.randint(10000000,99999999)
-    session_id=random.randint(10000000,99999999)
-    response=tr.Transaction.create(orden_compra,session_id,total,retorno)
-    
-    # print("Token a enviar a Commit Pagar: ",token())
-    context={'producto':producto,'response':response,'categ':categ,'subcateg':subcateg}
-    return render(request,'TiendaMPRO/Pagar.html',context)
-    # ,JsonResponse(data,safe=False)
-
-@csrf_exempt
 def CommitPago(request):
     transaction_id = random.randint(10000000,99999999)
     try:
@@ -249,7 +211,10 @@ def CommitPago(request):
             order, created = OrdenDeCompra.objects.get_or_create(id=id_order, complete=False)
             order.transaction_id = transaction_id
             order.complete = True
+            order.pagado = True
+            order.transferencia = False
             order.save()
+            print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A FALSE ")
         else:
             print('El pago fue rechazado')
         context={'tk':tk,'respse':response, 'order': order}

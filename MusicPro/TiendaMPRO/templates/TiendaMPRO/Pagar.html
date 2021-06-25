@@ -53,38 +53,4 @@
 
 </div>
 <!-- div#content-wrapper. -->
-<script>
-    $(function () {
-        $('select[name="cbocategoria"]').on('change', function () {
-            var id = $(this).val();
-            // var titulo= $(this).selector();
-            console.log("PROBANDO ID DE CATEGORIA : ", id, " -Es la id");
-            // alert(id)
-            // $.ajax({
-            //     url: window.location.pathname,
-            //     type: "POST",
-            //     data: {
-            //         'action': 'display_subcateg',
-            //         'id': id
-            //     },
-            //     dataType: 'json'
-            // }).done(function (data) {
-            //     console.log(data);
-            //     if (!data.hasOwnProperty('error')) {
-            //         console.log(data);
-            //         // $.each(data, function (key, value) {
-            //         //     options += '<option value="' + value.id + '">' + value.name + '</option>';
-            //         // });
-            //         return false;
-            //     }
-            //     message_error(data.error);
-
-            // }).fail(function (jqXHR, textStatus, errorThrown) {
-            //     alert(textStatus + ': ' + errorThrown);
-            // }).always(function (data) {
-            //     // select_products.html(options);
-            // });
-        })
-    });
-</script>
 {% endblock %}

@@ -37,9 +37,9 @@ class Usuario(AbstractBaseUser):
     nombre = models.CharField('Nombre', max_length=100, null=True)
     usuario_activo= models.BooleanField(default=True)
     usuario_admin = models.BooleanField(default=False)
-    usuario_vend = models.BooleanField(default=False, verbose_name='Vendedor')
-    usuario_bodega = models.BooleanField(default=False, verbose_name='Bodeguero')
-    usuario_contador = models.BooleanField(default=False, verbose_name='Contador')
+    usuario_vend = models.BooleanField(default=False, verbose_name='Vendedor', null=True)
+    usuario_bodega = models.BooleanField(default=False, verbose_name='Bodeguero', null=True)
+    usuario_contador = models.BooleanField(default=False, verbose_name='Contador', null=True)
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'email'
@@ -105,7 +105,8 @@ class OrdenDeCompra(models.Model):
     complete = models.BooleanField(default=False, null=True, blank=False)
     retiroTienda = models.BooleanField(default=False, null=True, blank=False)
     transaction_id=  models.CharField(max_length=200, null=True)
-
+    pagado = models.BooleanField(default=False, null=True, blank=False)
+    transferencia = models.BooleanField(default=False, null=True, blank=False)
     def __str__(self):
         return str(self.id)
     

@@ -5,7 +5,9 @@ function inicio() {
         $('#subcategoria').chained('#categoria');
         $('#tp_producto').chained('#subcategoria');
         //AJUSTE DE ANCHO EN CBOBOX POR DEFECTO
-        $('#subcategoria,#tp_producto').width("70%")
+        $('#subcategoria,#tp_producto').width("62%");
+        // $('#categoria').width("72%");
+
     });
  
 };

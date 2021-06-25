@@ -7,7 +7,6 @@ from django.urls import path
 urlpatterns = [
     path('', Login.as_view(), name='login'),
     url(r'^Productos/$', views.Productos, name="Productos"),
-    url(r'^Pagar/$', views.Pagar, name="Pagar"),
     url(r'^CommitPago/$', views.CommitPago, name="CommitPago"),
     path('store/', views.store, name='store'),
     path('cart/', views.cart, name='cart'),
