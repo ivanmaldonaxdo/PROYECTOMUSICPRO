@@ -36,10 +36,10 @@ class Usuario(AbstractBaseUser):
     email = models.EmailField('Correo Electronico', max_length=100, unique=True,)
     nombre = models.CharField('Nombre', max_length=100, null=True)
     usuario_activo= models.BooleanField(default=True)
-    usuario_admin = models.BooleanField(default=False)
-    usuario_vend = models.BooleanField(default=False)
-    usuario_bodega = models.BooleanField(default=False)
-    usuario_contador = models.BooleanField(default=False)
+    usuario_admin = models.BooleanField(default=False,null=True)
+    usuario_vend = models.BooleanField(default=False,null=True)
+    usuario_bodega = models.BooleanField(default=False,null=True)
+    usuario_contador = models.BooleanField(default=False,null=True)
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'email'
