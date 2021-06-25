@@ -200,6 +200,7 @@ def CommitPago(request):
             order, created = OrdenDeCompra.objects.get_or_create(id=id_order, complete=False)
             order.transaction_id = transaction_id
             order.complete = True
+            order.pagado = True
             order.save()
         else:
             print('El pago fue rechazado')
