@@ -20,6 +20,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect,csrf_exempt
 from .forms import FormEstrategiaVta, FormularioRegistroEmpleado
 from django.db.models import Q
+import numpy as np
 # Create your views here.
 
 
@@ -283,4 +284,10 @@ class Registrar_vendedor(CreateView):
     model = Usuario
     form_class = FormularioRegistroEmpleado
     template_name = 'TiendaMPRO/registrar_trabajador.html'
-    success_url = reverse_lazy('registrar_trabajador.html')
+    success_url = reverse_lazy('registrar_trabajador')
+
+
+def Pedido(request):
+    order = OrdenDeCompra.objects.all()
+    context={'order' : order}
+    return render(request, 'TiendaMPRO/Pedidos.html',context)
