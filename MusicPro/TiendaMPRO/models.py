@@ -105,7 +105,8 @@ class OrdenDeCompra(models.Model):
     complete = models.BooleanField(default=False, null=True, blank=False)
     retiroTienda = models.BooleanField(default=False, null=True, blank=False)
     transaction_id=  models.CharField(max_length=200, null=True)
-
+    pagado = models.BooleanField(default=False, null=True, blank=False)
+    transferencia = models.BooleanField(default=False, null=True, blank=False)
     def __str__(self):
         return str(self.id)
     
