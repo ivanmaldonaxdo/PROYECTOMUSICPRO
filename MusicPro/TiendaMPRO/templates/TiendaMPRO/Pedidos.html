@@ -1,0 +1,33 @@
+{% extends 'TiendaMPRO/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<br>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">N° de transaccion</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Fecha del pedido</th>
+        <th scope="col">Lugar de entrega</th>
+        <th scope="col">ejemplo</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for ped in order %}
+        <tr>
+          <td data-label="N° de transaccion">{{ped.transaction_id}}</td>
+          <td data-label="Valor">${{ped.get_total_descuento|floatformat:0}}</td>
+          <td data-label="Fecha del pedido">{{ped.date_orderd}}</td>
+          {% if ped.retiroTienda == True %}
+            <td data-label="Lugar de entrega">Retiro en Tienda</td>
+          {% elif ped.retiroTienda == False %}
+            <td data-label="Lugar de entrega">Envio Domicilio</td>
+          {% endif %}
+          
+        </tr>
+        {% endfor %}
+      
+  </table>
+{% endblock %}

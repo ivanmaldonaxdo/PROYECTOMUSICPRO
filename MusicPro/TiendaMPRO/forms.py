@@ -100,44 +100,20 @@ class FormularioRegistroEmpleado(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ('email', 'nombre', 'usuario_vend', 'usuario_bodega', 'usuario_contador')
-        # widgets= {
-        #     'email': forms.EmailInput(
-        #         attrs={
-        #             'class': 'form-control',
-        #             'placeholder': 'Ingrese su correo electronico'
-        #         }
-        #     ),
-        #     'nombre': forms.TextInput(
-        #         attrs={
-        #             'class': 'form-control',
-        #             'placeholder': 'Ingrese su nombre'
-        #         }
-        #     ),
-        #     'usuario_vend': forms.CheckboxInput(
-        #         attrs={
-        #             'class':'form-check-input',
-        #             'type':'radio', 
-        #             'name':'flexRadioDefault', 
-        #             'id':'flexRadioDefault1'
-        #         }
-        #     ),
-        #     'usuario_bodega': forms.CheckboxInput(
-        #         attrs={
-        #             'class':'form-check-input',
-        #             'type':'radio', 
-        #             'name':'flexRadioDefault', 
-        #             'id':'flexRadioDefault2'
-        #         }
-        #     ),
-        #     'usuario_contador': forms.CheckboxInput(
-        #         attrs={
-        #             'class':'form-check-input',
-        #             'type':'radio', 
-        #             'name':'flexRadioDefault', 
-        #             'id':'flexRadioDefault3'
-        #         }
-        #     )
-        # }
+        widgets= {
+            'email': forms.EmailInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese el correo electronico'
+                }
+            ),
+            'nombre': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese el nombre'
+                }
+            )
+        }
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
