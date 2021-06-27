@@ -4,29 +4,32 @@
 
 {% block content %}
 <br>
-<table class="table">
+<table class="table table-bordered">
     <thead class="thead-dark">
       <tr>
         <th scope="col">N° de transaccion</th>
         <th scope="col">Valor</th>
         <th scope="col">Fecha del pedido</th>
         <th scope="col">Lugar de entrega</th>
-        <th scope="col">ejemplo</th>
+        <th scope="col">Ver productos</th>
+
       </tr>
     </thead>
     <tbody>
         {% for ped in order %}
-        <tr>
-          <td data-label="N° de transaccion">{{ped.transaction_id}}</td>
-          <td data-label="Valor">${{ped.get_total_descuento|floatformat:0}}</td>
-          <td data-label="Fecha del pedido">{{ped.date_orderd}}</td>
-          {% if ped.retiroTienda == True %}
-            <td data-label="Lugar de entrega">Retiro en Tienda</td>
-          {% elif ped.retiroTienda == False %}
-            <td data-label="Lugar de entrega">Envio Domicilio</td>
+          {% if ped.complete == True %}
+            <tr>
+              <td data-label="N° de transaccion">{{ped.transaction_id}}</td>
+              <td data-label="Valor">${{ped.get_total_descuento|floatformat:0}}</td>
+              <td data-label="Fecha del pedido">{{ped.date_orderd}}</td>
+              {% if ped.retiroTienda == True %}
+                <td data-label="Lugar de entrega">Retiro en Tienda</td>
+              {% elif ped.retiroTienda == False %}
+                <td data-label="Lugar de entrega">Envio Domicilio</td>
+              {% endif %}
+              <td data-label="Fecha del pedido"><a class="" href="{% url 'detallePedido' ped.id %}">Detalles</a></td>
+            </tr>
           {% endif %}
-          
-        </tr>
         {% endfor %}
       
   </table>

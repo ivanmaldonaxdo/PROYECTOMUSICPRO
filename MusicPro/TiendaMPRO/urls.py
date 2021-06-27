@@ -18,7 +18,8 @@ urlpatterns = [
     path('estrategias/', views.Estrategia, name='estrategias'),
     path('addEstrategia/',RegistraEstrateg.as_view(), name='addEstrategia'),
     path('registrar_trabajador/', Registrar_vendedor.as_view(), name='registrar_trabajador'),
-    path('pedidos/', views.Pedido, name='pedidos')
+    path('pedidos/', views.Pedido, name='pedidos'),
+    path('products/<int:pk>/', views.detallePedido, name='detallePedido'),
 
 
 ]
