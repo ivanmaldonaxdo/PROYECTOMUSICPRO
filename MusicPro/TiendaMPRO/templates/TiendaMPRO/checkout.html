@@ -6,14 +6,15 @@
 		<br>
 		<div class="box-element" id="form-wrapper">
 			<form id="form">
+				{% csrf_token %}
 				<hr>
 				<!-- CHECKBOX PARA FORMA DE RETIRO -->
-				<div id="shipping-info" class="form-field">
+				<div  class="form-field">
 					<label for="retiro">Envio Domicilio</label>
-					<input type="checkbox" name="retiro" id="entrega" checked>
+					<input class="entrega-checkbox" type="checkbox" name="retiro" id="entrega">
 				</div>
 				<!-- FORMULARIO EN CASO DE ENVIO -->
-				<div id="shipping-info" class="info-envio">
+				<div id="shipping-info" class="info-envio hidden">
 					<hr>
 					<p>Informacion de envio:</p>
 					<hr>
@@ -34,13 +35,21 @@
 					</div>
 				</div>
 				<!-- FORMULARIO EN CASO DE RETIRO EN TIENDA -->
-				<div id="shipping-info" class="info-retiro" style="display: none;">
+				<div id="info-sucursal" class="info-retiro">
 					<hr>
-					<p>Informacion de retiro:</p>
+					<p>Sucursal de retiro:</p>
 					<hr>
 					<div class="form-field">
 						<label for="tienda">Tienda</label>
-						<select title="Tienda" class="form-control" name="tienda"></select>
+						
+						<select title="Tienda" class="form-control" name="tienda" >
+							<option value="0">Seleccionar</option>
+							{% for d in direcciones %}
+								<option value="{{d.id}}">{{d.ciudad}}</option>
+							{% endfor %}
+							
+						</select>
+						
 					</div>
 				</div>
 				<hr>
@@ -49,11 +58,11 @@
 		</div>
 		<br>
 		<!-- METODO DE PAGO -->
-		<div class="box-element" id="payment-info">
+		<div class="box-element hidden" id="payment-info">
 			<p>Opciones de pago</p>
-			<form method="post" action={{response.url}}>
+			<form method="post" action="{{response.url}}">
 				<input type="hidden" name="token_ws" value={{response.token}} />
-				<input class="btn btn-success btn-block" type="submit" value="Pago Transbank" />
+				<input id="make-payment" class="btn btn-success btn-block" type="submit" value="Pago Transbank" />
 			</form>
 		</div>
 	</div>
@@ -92,6 +101,8 @@
 </div>
 
 <script type="text/javascript">
+	
+
 
 </script>
 

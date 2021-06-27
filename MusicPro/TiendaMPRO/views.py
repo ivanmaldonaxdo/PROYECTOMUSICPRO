@@ -1,14 +1,17 @@
+import json
+from datetime import datetime
 from django.db.models.query import QuerySet
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 import transbank.webpay.webpay_plus.transaction as tr
 import random
+import datetime
 # Create your views here.
 from django.http import JsonResponse, request
 from django.views.generic.edit import DeleteView, FormView
-import json
+
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from .models import Usuario, EstrategiaDeVenta
@@ -90,6 +93,7 @@ def checkout(request):
     if request.user.is_authenticated:
         customer = request.user
         order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
+        direcciones = Sucursal.objects.all()
         items = order.productopedido_set.all()
         total=order.get_total_descuento
         itemsCarrito = order.get_carro_productos
@@ -109,7 +113,7 @@ def checkout(request):
         itemsCarrito = order['get_carro_productos']
     
     print("Token a Boton: ",response.token)
-    context = {'items': items, 'order': order,'response':response, 'itemsCarrito': itemsCarrito}
+    context = {'items': items, 'order': order,'response':response, 'itemsCarrito': itemsCarrito, 'direcciones': direcciones}
     return render(request, 'TiendaMPRO/checkout.html', context)
 
 
@@ -250,6 +254,16 @@ def CommitPago(request):
             order.transaction_id = transaction_id
             order.complete = True
             order.save()
+
+            # DireccionDeEnvio.objects.create(
+            #     customer = request.user,
+            #     order = order,
+            #     direccion = datos["shipping"]["address"],
+            #     ciudad = datos["shipping"]["city"],
+            #     estado_comuna = datos["shipping"]["state"],
+            #     codigo_postal = datos["shipping"]["zipcode"],
+            #     pais = datos["shipping"]["country"]
+            # )
         else:
             print('El pago fue rechazado')
         context={'tk':tk,'respse':response, 'order': order}
@@ -291,3 +305,12 @@ def Pedido(request):
     order = OrdenDeCompra.objects.all()
     context={'order' : order}
     return render(request, 'TiendaMPRO/Pedidos.html',context)
+
+def detallePedido(request, pk):
+    order = OrdenDeCompra.objects.get(id = pk)
+    items = order.productopedido_set.all()
+    context={'items': items, 'orden' : order}
+    return render (request, 'TiendaMPRO/detalleProducto.html', context)
+
+
+    

@@ -1,0 +1,27 @@
+{% extends 'TiendaMPRO/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="col-lg-6">
+    <div class="box-element">
+        <a class="btn btn-outline-dark" href="{% url 'pedidos' %}">&#x2190; Volver</a>
+        <hr>
+        <h3>Orden de Compra</h3>
+        <hr>
+        {% for item in items %}
+        <div class="cart-row">
+            <div style="flex:2"><img class="row-image" src="{{item.producto.imageURL}}"></div>
+            <div style="flex:2">
+                <p>{{item.producto.nom_prod}}</p>
+            </div>
+            <div style="flex:1">
+                <p>x{{item.cantidad}}</p>
+            </div>
+        </div>
+        {% endfor %}
+        <h5>Cantidad de productos: {{orden.get_carro_productos|floatformat:0}}</h5>
+
+    </div>
+</div>
+{% endblock %}
