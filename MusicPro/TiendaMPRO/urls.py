@@ -19,7 +19,7 @@ urlpatterns = [
     path('addEstrategia/',RegistraEstrateg.as_view(), name='addEstrategia'),
     path('registrar_trabajador/', Registrar_vendedor.as_view(), name='registrar_trabajador'),
     path('pedidos/', views.Pedido, name='pedidos'),
-    path('pagos/', views.Pago, name='pagos')
+    path('pagos/', views.Transferencia, name='tfpagos')
 
 
 

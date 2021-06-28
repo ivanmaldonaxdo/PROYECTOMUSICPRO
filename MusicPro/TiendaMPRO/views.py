@@ -234,6 +234,15 @@ def Pedido(request):
     context={'order' : order}
     return render(request, 'TiendaMPRO/Pedidos.html',context)
 
-def Pago(request):
-    context={}
+def Transferencia(request):
+    # context={'pagos':pagos,'orders':orders}
+    nulos=Pago.objects.all().filter(order__isnull=True)
+    notnulos=Pago.objects.all().filter(order__isnull=False)
+    pagos=Pago.objects.all()
+    print("Nulos : ",nulos)
+    print("No Nulos : ",notnulos)
+    context={'pagos':pagos}
+    # print(orders)
+    # print(pagos.order.fk)
+
     return render(request,'TiendaMPRO/Pagos.html',context)
