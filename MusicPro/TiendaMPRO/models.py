@@ -107,6 +107,7 @@ class OrdenDeCompra(models.Model):
     transaction_id=  models.CharField(max_length=200, null=True)
     pagado = models.BooleanField(default=False, null=True, blank=False)
     transferencia = models.BooleanField(default=False, null=True, blank=False)
+    
     def __str__(self):
         return str(self.id)
     
@@ -134,6 +135,16 @@ class OrdenDeCompra(models.Model):
         total = sum ([item.cantidad for item in orderitems])
         return total
 
+    
+    @property
+    def envio(self):
+        envio = False
+        order = OrdenDeCompra.objects.all()
+        for i in order:
+            if i.retiro_tienda == False:
+                envio = True
+        return envio
+
         
 
 class ProductoPedido(models.Model):
@@ -154,7 +165,8 @@ class DireccionDeEnvio(models.Model):
     ciudad = models.CharField(max_length=200, null=True)
     estado_comuna = models.CharField(max_length=200, null=True)
     codigo_postal = models.CharField(max_length=200, null=True)
-    fecha_pedido = models.CharField(max_length=200, null=True)
+    pais = models.CharField(max_length=200, null=True)
+    fecha_pedido = models.DateTimeField(default=timezone.now, null=True)
 
     def __str__(self):
         return self.direccion
@@ -174,7 +186,17 @@ class Pago(models.Model):
     monto = models.FloatField(default=1.0)
     fecha_pago = models.DateTimeField(auto_now_add=True)
     mensaje = models.CharField(max_length=200, null=True,blank= True)
-
     def __str__(self):
         return self.mensaje
 
+
+class Sucursal(models.Model):
+    ciudad = models.CharField(max_length=200)
+    direccion = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.ciudad
+
+class SucursalDeEntrega(models.Model):
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, blank=True, null=True)
+    order = models.ForeignKey(OrdenDeCompra, on_delete=models.SET_NULL, blank=True, null=True)
