@@ -248,12 +248,12 @@ def Transferencia(request):
         pg=Pago.objects.get(order=q_order)
         print("Pago : " ,pg.id)
         print("Aceptado el pago ",pg.id ,", de la orden: " ,q_order)
-        # order, created = OrdenDeCompra.objects.get_or_create(id=q_order, complete=False)
-        # order.transaction_id = transaction_id
-        # order.complete = True
-        # order.pagado = True
-        # order.save()
-        # print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A FALSE ")
+        order, created = OrdenDeCompra.objects.get_or_create(id=q_order, complete=False)
+        order.transaction_id = transaction_id
+        order.complete = True
+        order.pagado = True
+        order.save()
+        print("SE HA ACEPTADO EL PAGODE TRANSFERENCIA ")
     # print(orders)
     # print(pagos.order.fk)
     context={'pagos':pagos}
