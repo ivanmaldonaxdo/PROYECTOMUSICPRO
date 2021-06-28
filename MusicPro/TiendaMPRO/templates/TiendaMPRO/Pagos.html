@@ -36,11 +36,11 @@
                     <td data-label="Pagado">{{p.order.pagado}}</td>
                     <td data-label="Aceptar">
                         <form method="get" action="">
-                            <input type="hidden" name="transferencia" value="no" />
+                            <input type="hidden" name="order" value="{{ p.order }}" />
                             <input class="btn btn-success btn-block"  
-                                   {% ifnotequal p.monto p.order.get_total_descuento   %}
-                                        disabled
-                                   {% endifnotequal %}
+                                {% ifnotequal p.monto p.order.get_total_descuento %}
+                                    disabled
+                                {% endifnotequal %}
                             type="submit" value="Aceptar pago" />
                         </form>
                     </td>                        

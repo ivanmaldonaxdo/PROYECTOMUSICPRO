@@ -241,8 +241,13 @@ def Transferencia(request):
     pagos=Pago.objects.all()
     print("Nulos : ",nulos)
     print("No Nulos : ",notnulos)
-    context={'pagos':pagos}
+    
+    q_order=request.GET.get('order')
+    if q_order:
+        pg=Pago.objects.get(order=q_order)
+        print("Pago : " ,pg.id)
+        print("Aceptado el pago ",pg.id ,", de la orden: " ,q_order)
     # print(orders)
     # print(pagos.order.fk)
-
+    context={'pagos':pagos}
     return render(request,'TiendaMPRO/Pagos.html',context)
