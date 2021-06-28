@@ -25,27 +25,24 @@
         <tbody>
             {% for p in pagos %}
             <tr>
-
-                {% ifequal p.order.pagado False %}
-                    <td data-label="N° de pago">{{p.id}}</td>
-                    <td data-label="Valor">{{p.order}}</td>
-                    <td data-label="N° cuenta">{{p.cuenta_id}}</td>
-                    <td data-label="Monto Transferido">{{p.monto}}</td>
-                    <td data-label="Total a pagar por orden">{{p.order.get_total_descuento}}</td>
-                    <td data-label="Mensaje">{{p.mensaje}}</td>
-                    <td data-label="Pagado">{{p.order.pagado}}</td>
-                    <td data-label="Aceptar">
-                        <form method="get" action="">
-                            <input type="hidden" name="order" value="{{ p.order }}" />
-                            <input class="btn btn-success btn-block"  
-                                {% ifnotequal p.monto p.order.get_total_descuento %}
-                                    disabled
-                                {% endifnotequal %}
-                            type="submit" value="Aceptar pago" />
-                        </form>
-                    </td>                        
-                {% endifequal %}
-
+                {% if p.order.transferencia %}
+                    {% ifequal p.order.pagado False %}
+                        <td data-label="N° de pago">{{p.id}}</td>
+                        <td data-label="Valor">{{p.order}}</td>
+                        <td data-label="N° cuenta">{{p.cuenta_id}}</td>
+                        <td data-label="Monto Transferido">{{p.monto}}</td>
+                        <td data-label="Total a pagar por orden">{{p.order.get_total_descuento}}</td>
+                        <td data-label="Mensaje">{{p.mensaje}}</td>
+                        <td data-label="Pagado">{{p.order.pagado}}</td>
+                        <td data-label="Aceptar">
+                            <form method="get" action="">
+                                <input type="hidden" name="order" value="{{ p.order }}" />
+                                <input class="btn btn-success btn-block" {% ifnotequal p.monto p.order.get_total_descuento %}
+                                    disabled {% endifnotequal %} type="submit" value="Aceptar pago" />
+                            </form>
+                        </td>
+                    {% endifequal %}
+                {% endif %}
             </tr>
 
             {% endfor %}
