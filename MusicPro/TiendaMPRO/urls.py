@@ -6,7 +6,7 @@ from django.urls import path
 
 urlpatterns = [
     path('', Login.as_view(), name='login'),
-    url(r'^Productos/$', views.Productos, name="Productos"),
+    # url(r'^Productos/$', views.Productos, name="Productos"),
     url(r'^CommitPago/$', views.CommitPago, name="CommitPago"),
     path('store/', views.store, name='store'),
     path('cart/', views.cart, name='cart'),
@@ -18,7 +18,9 @@ urlpatterns = [
     path('estrategias/', views.Estrategia, name='estrategias'),
     path('addEstrategia/',RegistraEstrateg.as_view(), name='addEstrategia'),
     path('registrar_trabajador/', Registrar_vendedor.as_view(), name='registrar_trabajador'),
-    path('pedidos/', views.Pedido, name='pedidos')
+    path('pedidos/', views.Pedido, name='pedidos'),
+    path('pagos/', views.Pago, name='pagos')
+
 
 
 ]

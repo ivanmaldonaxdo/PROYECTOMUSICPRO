@@ -151,26 +151,6 @@ def updateProducto(request):
 
     return JsonResponse('El item fue agregado', safe=False )
 
-
-
-def Productos(request):
-    # id_categ=Categoria.objects.all()
-    categ=Categoria.objects.all()
-    for c in categ:
-        # print(c)
-        subCateg=SubCategoria.objects.filter(categoria=c).select_related('categoria')
-        for sb in subCateg:
-            tipoProd=TipoProducto.objects.filter(sub_categ=sb).select_related('sub_categ')
-            for tp in tipoProd:
-                # print(subCateg)
-                producto=Producto.objects.filter(tipo_prod=tp).select_related('tipo_prod')
-                # print("Categoria: ", c ,", Subcateg: ",subCateg,", Tipo Prod: ", tipoProd,", Producto: ", producto )
-                context={'categ':categ,"subCateg":subCateg,"tipoProd":tipoProd,"producto":producto}
-                print(context)  
-    return render(request, 'TiendaMPRO/Productos.html',context)
-
-
-
 #Registro de usuarios
 
 class RegistrarUsuario(CreateView):
@@ -225,7 +205,6 @@ def CommitPago(request):
     return render(request, 'TiendaMPRO/CommitPago.html',context)
 
         
-    
 def Estrategia(request):
     estrategias = EstrategiaDeVenta.objects.all()
     if request.user.is_authenticated:
@@ -244,15 +223,17 @@ class RegistraEstrateg(CreateView):
     template_name='TiendaMPRO/addEstrategia.html'
     success_url=reverse_lazy('estrategias')
 
-
 class Registrar_vendedor(CreateView):
     model = Usuario
     form_class = FormularioRegistroEmpleado
     template_name = 'TiendaMPRO/registrar_trabajador.html'
     success_url = reverse_lazy('registrar_trabajador')
 
-
 def Pedido(request):
     order = OrdenDeCompra.objects.all()
     context={'order' : order}
     return render(request, 'TiendaMPRO/Pedidos.html',context)
+
+def Pago(request):
+    context={}
+    return render(request,'TiendaMPRO/Pagos.html',context)
