@@ -107,6 +107,9 @@ class OrdenDeCompra(models.Model):
     transaction_id=  models.CharField(max_length=200, null=True)
     pagado = models.BooleanField(default=False, null=True, blank=False)
     transferencia = models.BooleanField(default=False, null=True, blank=False)
+    aceptada = models.BooleanField(default=False, null=True, blank=False)
+    estado = models.CharField(max_length=200, null=True, blank=True, default="En Bodega")
+
     
     def __str__(self):
         return str(self.id)
@@ -190,6 +193,18 @@ class Sucursal(models.Model):
 class SucursalDeEntrega(models.Model):
     sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(OrdenDeCompra, on_delete=models.SET_NULL, blank=True, null=True)
+
+
+class OrdenDeEntrega(models.Model):
+    order = models.ForeignKey(OrdenDeCompra, on_delete=models.SET_NULL, blank=True, null=True)
+    direccion = models.CharField(max_length=200, null=True, blank=True)
+    ciudad = models.CharField(max_length=200, null=True, blank=True)
+    pais = models.CharField(max_length=200, null=True, blank=True)
+    fecha_de_entrega = models.DateTimeField(null=True)
+
+
+
+
 
 
 

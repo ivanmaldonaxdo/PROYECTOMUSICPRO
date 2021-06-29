@@ -1,0 +1,64 @@
+{% extends 'TiendaMPRO/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<div><hr></div>
+<table class="table table-sm">
+    <h3>Ordenes Aceptadas</h3>
+    <thead>
+      <tr>
+        <th scope="col">Codigo Orden</th>
+        <th scope="col">Productos</th>
+        <th scope="col">Despachar al vendedor</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for ordd in order %}
+            {% if ordd.aceptada == True %}
+              {% if ordd.estado == 'En Bodega' %}
+            <tr>
+                <td data-label="Codigo Orden">{{ordd.id}}</td>
+                <td data-label="Productos"><a class="" href="{% url 'ordenPedido' ordd.id %}">Detalles</a></td>
+                <td data-label="Codigo Orden">
+                <button type="button" class="btn btn-sm btn-outline-primary despacho-btn" data-product="{{ordd.id}}" data-action="despacho">Confirmar Despacho</a>
+                </td>
+            </tr>
+              {% endif %}
+            {% endif %}
+        {% endfor %}
+    </tbody>
+  </table>
+  <script type="text/javascript">
+  
+    var btndespacho = document.getElementsByClassName('despacho-btn')
+  
+    for(var i = 0; i<btndespacho.length; i++){
+      btndespacho[i].addEventListener('click', function(){
+         var ordenId = this.dataset.product
+         var action = this.dataset.action
+         enviarDatosDespacho(ordenId, action)        
+       })
+      }
+  
+    function enviarDatosDespacho(ordenId, action){
+    var urls = '/crear_despacho/'
+  
+    fetch(urls, {
+      method: 'POST',
+      headers:{      
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+      },
+        body:JSON.stringify({'ordenId': ordenId, 'action': action})
+      })
+      .then((response)=>{
+          return response.json()
+      })
+      .then((data) =>{
+          console.log('data:', data)
+          location.reload()
+      })
+  }
+    </script>
+{% endblock %}

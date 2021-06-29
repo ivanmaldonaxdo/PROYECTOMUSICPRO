@@ -1,0 +1,31 @@
+{% extends 'TiendaMPRO/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<hr>
+<a class="btn btn-outline-dark" href="{% url 'ordenes_bodega' %}">&#x2190; Volver</a>
+<hr>
+<table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Codigo Producto</th>
+        <th scope="col">Nombre producto</th>
+        <th scope="col">Cantidad</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+            <tr>
+                <td data-label="Codigo Producto">{{item.id}}</td>
+                <td data-label="Nombre Producto">{{item.producto.nom_prod}}</td>
+                <td data-label="Codigo Producto">{{item.cantidad}}</td>
+            </tr>
+        {% endfor %}
+      <tr>
+
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
