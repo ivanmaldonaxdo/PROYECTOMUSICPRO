@@ -1,0 +1,29 @@
+{% extends 'TiendaMPRO/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<div><hr></div>
+<table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Codigo del producto</th>
+        <th scope="col">Nombre producto</th>
+        <th scope="col">Tipo de producto</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Imagen</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pro in productos %}
+        <tr>
+            <td data-label="Codigo del producto">{{pro.id}}</td>
+            <td data-label="Nombre producto">{{pro.nom_prod}}</td>
+            <td data-label="Tipo de producto">{{pro.tipo_prod}}</td>
+            <td data-label="Precio">{{pro.precio|floatformat:0}}</td>
+            <td data-label="Imagen"><a class="" href="{% url 'imagenProducto' pro.id %}">Ver Imagen</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

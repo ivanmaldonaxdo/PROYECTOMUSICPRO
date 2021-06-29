@@ -1,0 +1,67 @@
+{% extends 'TiendaMPRO/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<div><hr></div>
+<table class="table table-sm">
+    <h3>Ordenes de despacho</h3>
+    <thead>
+      <tr>
+        <th scope="col">Codigo Orden</th>
+        <th scope="col">Productos</th>
+        <th scope="col">Cambiar estado</th>
+        <th scope="col">Estado Orden</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for o in order %}
+            {% if o.aceptada == True %}
+              {% if o.estado == 'Al vendedor' %}
+            <tr>
+                <td data-label="Codigo Orden">{{o.id}}</td>
+                <td data-label="Productos"><a class="btn btn-sm btn-outline-primary" href="#">Detalles</a></td>
+                <td data-label="Cambiar Estado">
+                <a class="btn btn-sm btn-outline-primary" href="#">Confirmar</a>
+                <button type="button" class="btn btn-sm btn-outline-primary envio-btn" data-product="{{o.id}}" data-action="rechazar">Rechazar</a>
+                </td>
+                <td data-label="Estado Orden">En tienda</td>
+            </tr>
+              {% endif %}
+            {% endif %}
+        {% endfor %}
+    </tbody>
+  </table>
+  <script type="text/javascript">
+  
+    var btnestado = document.getElementsByClassName('envio-btn')
+  
+    for(var i = 0; i<btnestado.length; i++){
+      btnestado[i].addEventListener('click', function(){
+         var ordenId = this.dataset.product
+         var action = this.dataset.action
+         enviarDatosRechazo(ordenId, action)        
+       })
+      }
+  
+    function enviarDatosRechazo(ordenId, action){
+    var urls = '/cancelar_despacho/'
+  
+    fetch(urls, {
+      method: 'POST',
+      headers:{      
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+      },
+        body:JSON.stringify({'ordenId': ordenId, 'action': action})
+      })
+      .then((response)=>{
+          return response.json()
+      })
+      .then((data) =>{
+          console.log('data:', data)
+          location.reload()
+      })
+  }
+    </script>
+{% endblock %}

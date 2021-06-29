@@ -3,4 +3,4 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register([Categoria,SubCategoria,TipoProducto,Producto, Usuario,
-                    OrdenDeCompra, ProductoPedido, DireccionDeEnvio, EstrategiaDeVenta, Sucursal, SucursalDeEntrega])
+                    OrdenDeCompra, ProductoPedido, DireccionDeEnvio, EstrategiaDeVenta, Sucursal, SucursalDeEntrega, OrdenDeEntrega])

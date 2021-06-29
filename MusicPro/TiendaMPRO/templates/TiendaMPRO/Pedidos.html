@@ -12,6 +12,8 @@
         <th scope="col">Fecha del pedido</th>
         <th scope="col">Lugar de entrega</th>
         <th scope="col">Ver productos</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Opciones</th>
 
       </tr>
     </thead>
@@ -27,10 +29,54 @@
               {% elif ped.retiroTienda == False %}
                 <td data-label="Lugar de entrega">Envio Domicilio</td>
               {% endif %}
-              <td data-label="Fecha del pedido"><a class="" href="{% url 'detallePedido' ped.id %}">Detalles</a></td>
+              <td data-label="Ver Productos"><a class="" href="{% url 'detallePedido' ped.id %}">Detalles</a></td>
+              {% if ped.aceptada == True %}
+                <td data-label="Estado">Aceptada</td>
+              {% elif ped.aceptada == False %}
+              <td data-label="Estado">Rechazada</td>
+              {% endif %}
+              <td data-label="Opciones">
+                <button type="button" class="btn btn-sm btn-outline-primary option-btn" data-product="{{ped.id}}" data-action="aceptar">Aceptar</a>
+                <button type="button" class="btn btn-sm btn-outline-primary option-btn" data-product="{{ped.id}}" data-action="rechazar">Rechazar</a>
+              </td>
+              
+              
             </tr>
           {% endif %}
         {% endfor %}
       
   </table>
+  <script type="text/javascript">
+  
+  var btnoption = document.getElementsByClassName('option-btn')
+
+  for(var i = 0; i<btnoption.length; i++){
+    btnoption[i].addEventListener('click', function(){
+       var ordenId = this.dataset.product
+       var action = this.dataset.action
+       actualizarEstadoOrden(ordenId, action)        
+       console.log(ordenId, action)
+     })
+    }
+
+  function actualizarEstadoOrden(ordenId, action){
+  var urls = '/update_orden/'
+
+  fetch(urls, {
+    method: 'POST',
+    headers:{      
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrftoken,
+    },
+      body:JSON.stringify({'ordenId': ordenId, 'action': action})
+    })
+    .then((response)=>{
+        return response.json()
+    })
+    .then((data) =>{
+        console.log('data:', data)
+        location.reload()
+    })
+}
+  </script>
 {% endblock %}

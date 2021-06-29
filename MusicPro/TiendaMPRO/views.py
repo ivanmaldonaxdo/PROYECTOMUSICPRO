@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from json.decoder import JSONDecoder
 from django.db.models.query import QuerySet
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -127,7 +128,7 @@ def checkout(request):
         order= {'get_total_carro': 0, 'get_carro_productos': 0}
         itemsCarrito = order['get_carro_productos']
     
-    print("Token a Boton: ",response.token)
+    #print("Token a Boton: ",response.token)
     context = {'items': items, 'order': order,'response':response, 'itemsCarrito': itemsCarrito, 'direcciones': direcciones}
     return render(request, 'TiendaMPRO/checkout.html', context)
 
@@ -206,6 +207,7 @@ def logoutUsuario(request):
 
 @csrf_exempt
 def CommitPago(request):
+    # print(request.data)
     transaction_id = random.randint(10000000,99999999)
     try:
         tk= token()
@@ -267,5 +269,73 @@ def detallePedido(request, pk):
     context={'items': items, 'orden' : order}
     return render (request, 'TiendaMPRO/detalleProducto.html', context)
 
+def updateOrden(request):
+    print(request.body)
+    data = json.loads(request.body)
+    ordenId = data['ordenId']
+    action = data['action']
 
+    order, created = OrdenDeCompra.objects.get_or_create(id = ordenId)
+
+    if action == 'aceptar':
+        order.aceptada = True
+    elif action == 'rechazar':
+        order.aceptada = False
+
+    order.save()
+
+
+    return JsonResponse('El item fue agregado', safe=False )
     
+def productosBodega(request):
+    productos = Producto.objects.all()
+    context={'productos' : productos}
+    return render(request, 'TiendaMPRO/bodega.html',context)
+
+def verImagen(request, pk):
+    producto = Producto.objects.get(id = pk)
+    context={'producto': producto}
+    return render (request, 'TiendaMPRO/imagen.html', context)
+
+
+def ordenesBodega(request):
+    order = OrdenDeCompra.objects.all()
+    context={'order' : order}
+    return render (request, 'TiendaMPRO/ordenes_bodega.html', context)
+
+def detalleOrden(request, pk):
+    order = OrdenDeCompra.objects.get(id = pk)
+    items = order.productopedido_set.all()
+    context={'items': items, 'orden' : order}
+    return render (request, 'TiendaMPRO/detallesOrden.html', context)
+    
+
+def crearDespacho(request):
+    print(request.body)
+    data = json.loads(request.body)
+    ordenId = data['ordenId']
+    action = data['action']
+    order, created = OrdenDeCompra.objects.get_or_create(id = ordenId)
+    if action == 'despacho':
+        order.estado = "Al vendedor"
+        order.save()
+        OrdenDeEntrega.objects.create(
+            order = order,
+        )
+    
+    return JsonResponse('El item fue agregado', safe=False )
+
+def ordenesEnvio(request):
+    order = OrdenDeCompra.objects.all()
+    context={'order' : order}
+    return render (request, 'TiendaMPRO/ordenesDespacho.html', context)
+
+def cancelarDespacho(request):
+    data = json.loads(request.body)
+    ordenId = data['ordenId']
+    action = data['action']
+    order, created = OrdenDeCompra.objects.get_or_create(id = ordenId)
+    if action == 'rechazar':
+        order.estado = "En Bodega"
+    order.save()
+    return JsonResponse('El despacho fue cancelado', safe=False )

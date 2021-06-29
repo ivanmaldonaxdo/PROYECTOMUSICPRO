@@ -25,7 +25,7 @@
 						<input class="form-control" type="text" name="city" placeholder="Ciudad..">
 					</div>
 					<div class="form-field">
-						<input class="form-control" type="text" name="state" placeholder="Estado/Comuna..">
+						<input class="form-control" type="text" name="state" placeholder="Estado/Region..">
 					</div>
 					<div class="form-field">
 						<input class="form-control" type="text" name="zipcode" placeholder="Codigo Postal..">
@@ -111,7 +111,74 @@
 </div>
 
 <script type="text/javascript">
-	
+	var envio = document.getElementById('entrega')
+	var total = '{{order.get_total_descuento|floatformat:0}}'
+
+	envio.addEventListener('change', function(e){
+		if (this.checked){
+			document.getElementById('shipping-info').classList.remove("hidden");
+			document.getElementById('info-sucursal').classList.add("hidden");
+			
+		}else{
+			document.getElementById('shipping-info').classList.add("hidden");
+			document.getElementById('info-sucursal').classList.remove("hidden");
+		}
+	})
+
+
+	var form = document.getElementById('form')
+	form.addEventListener('submit', function(e){
+		e.preventDefault()
+		console.log('form enviado')
+		document.getElementById('form-button').classList.add("hidden");
+		document.getElementById('payment-info').classList.remove("hidden");
+	})
+
+	document.getElementById('make-payment').addEventListener('click', function(e){
+		submitFormData()
+	})
+	function submitFormData(){
+
+		// var datosUser = {
+		// 	'total': total
+		// }
+
+		var shippingInfo = {
+			'address':null,
+			'city':null,
+			'state':null,
+			'zipcode':null,
+			'country':null
+		}
+
+		var sucursal = {
+			'ciudad': null,
+		}
+
+		if (envio.checked){
+			shippingInfo.address = form.address.value
+			shippingInfo.city = form.city.value
+			shippingInfo.state = form.state.value
+			shippingInfo.zipcode = form.zipcode.value
+			shippingInfo.country = form.country.value
+		}else{
+			sucursal.ciudad = form.tienda.value
+		}
+
+		var urls2 = '/CommitPago/'
+		
+		fetch(urls2,{
+			method:'POST',
+			headers:{
+                'Content-Type':'application/json',
+			},
+			data:JSON.stringify({'shipping':shippingInfo})
+
+		})
+		.then((response)=>response.json())
+	}
+
+
 
 
 </script>

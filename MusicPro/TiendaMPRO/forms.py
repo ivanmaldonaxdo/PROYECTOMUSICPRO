@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.forms import fields, widgets
-from .models import Usuario,EstrategiaDeVenta
+from .models import OrdenDeEntrega, Usuario,EstrategiaDeVenta
 
 
 #Formulario de registro

@@ -20,6 +20,13 @@ urlpatterns = [
     path('registrar_trabajador/', Registrar_vendedor.as_view(), name='registrar_trabajador'),
     path('pedidos/', views.Pedido, name='pedidos'),
     path('products/<int:pk>/', views.detallePedido, name='detallePedido'),
-
+    path('update_orden/', views.updateOrden, name='update_orden'),
+    path('bodega/', views.productosBodega, name='bodega'),
+    path('imagen/<int:pk>/', views.verImagen, name='imagenProducto'),
+    path('ordenes_bodega/', views.ordenesBodega, name='ordenes_bodega'),
+    path('orden/<int:pk>/', views.detalleOrden, name='ordenPedido'),
+    path('crear_despacho/', views.crearDespacho, name='crear_despacho'),
+    path('ordenes_despacho/', views.ordenesEnvio, name='ordenes_despacho'),
+    path('cancelar_despacho/', views.cancelarDespacho, name='cancelar_despacho'),
 
 ]
