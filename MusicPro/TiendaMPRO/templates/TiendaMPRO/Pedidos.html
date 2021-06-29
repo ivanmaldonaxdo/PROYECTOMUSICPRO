@@ -19,7 +19,7 @@
     </thead>
     <tbody>
         {% for ped in order %}
-          {% if ped.complete == True %}
+          {% if ped.pagado == True %}
             <tr>
               <td data-label="N° de transaccion">{{ped.transaction_id}}</td>
               <td data-label="Valor">${{ped.get_total_descuento|floatformat:0}}</td>
