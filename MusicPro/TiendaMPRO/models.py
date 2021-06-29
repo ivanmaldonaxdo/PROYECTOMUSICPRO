@@ -183,6 +183,16 @@ class EstrategiaDeVenta(models.Model):
     def __str__(self):
         return self.titulo + ' | ' + str(self.user.nombre)
 
+class Pago(models.Model):
+    order = models.ForeignKey(OrdenDeCompra, on_delete=models.SET_NULL, blank=True, null=True)
+    cuenta_id = models.FloatField(default=0.0)
+    monto = models.FloatField(default=1.0)
+    fecha_pago = models.DateTimeField(auto_now_add=True)
+    mensaje = models.CharField(max_length=200, null=True,blank= True)
+    def __str__(self):
+        return self.mensaje
+
+
 class Sucursal(models.Model):
     ciudad = models.CharField(max_length=200)
     direccion = models.CharField(max_length=200, null=True)

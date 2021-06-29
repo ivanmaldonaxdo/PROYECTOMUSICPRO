@@ -156,26 +156,6 @@ def updateProducto(request):
 
     return JsonResponse('El item fue agregado', safe=False )
 
-
-
-def Productos(request):
-    # id_categ=Categoria.objects.all()
-    categ=Categoria.objects.all()
-    for c in categ:
-        # print(c)
-        subCateg=SubCategoria.objects.filter(categoria=c).select_related('categoria')
-        for sb in subCateg:
-            tipoProd=TipoProducto.objects.filter(sub_categ=sb).select_related('sub_categ')
-            for tp in tipoProd:
-                # print(subCateg)
-                producto=Producto.objects.filter(tipo_prod=tp).select_related('tipo_prod')
-                # print("Categoria: ", c ,", Subcateg: ",subCateg,", Tipo Prod: ", tipoProd,", Producto: ", producto )
-                context={'categ':categ,"subCateg":subCateg,"tipoProd":tipoProd,"producto":producto}
-                print(context)  
-    return render(request, 'TiendaMPRO/Productos.html',context)
-
-
-
 #Registro de usuarios
 
 class RegistrarUsuario(CreateView):
@@ -231,7 +211,6 @@ def CommitPago(request):
     return render(request, 'TiendaMPRO/CommitPago.html',context)
 
         
-    
 def Estrategia(request):
     estrategias = EstrategiaDeVenta.objects.all()
     if request.user.is_authenticated:
@@ -250,19 +229,41 @@ class RegistraEstrateg(CreateView):
     template_name='TiendaMPRO/addEstrategia.html'
     success_url=reverse_lazy('estrategias')
 
-
 class Registrar_vendedor(CreateView):
     model = Usuario
     form_class = FormularioRegistroEmpleado
     template_name = 'TiendaMPRO/registrar_trabajador.html'
     success_url = reverse_lazy('registrar_trabajador')
 
-
 def Pedido(request):
     order = OrdenDeCompra.objects.all()
     context={'order' : order}
     return render(request, 'TiendaMPRO/Pedidos.html',context)
 
+def Transferencia(request):
+    # context={'pagos':pagos,'orders':orders}
+    nulos=Pago.objects.all().filter(order__isnull=True)
+    notnulos=Pago.objects.all().filter(order__isnull=False)
+    pagos=Pago.objects.all()
+    print("Nulos : ",nulos)
+    print("No Nulos : ",notnulos)
+    
+    q_order=request.GET.get('order')
+    if q_order:
+        transaction_id = random.randint(10000000,99999999)
+        pg=Pago.objects.get(order=q_order)
+        print("Pago : " ,pg.id)
+        print("Aceptado el pago ",pg.id ,", de la orden: " ,q_order)
+        order, created = OrdenDeCompra.objects.get_or_create(id=q_order, complete=False)
+        order.transaction_id = transaction_id
+        order.complete = True
+        order.pagado = True
+        order.save()
+        print("SE HA ACEPTADO EL PAGODE TRANSFERENCIA ")
+    # print(orders)
+    # print(pagos.order.fk)
+    context={'pagos':pagos}
+    return render(request,'TiendaMPRO/Pagos.html',context)
 def detallePedido(request, pk):
     order = OrdenDeCompra.objects.get(id = pk)
     items = order.productopedido_set.all()

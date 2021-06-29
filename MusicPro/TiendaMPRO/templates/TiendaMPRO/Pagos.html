@@ -1,0 +1,52 @@
+{% extends 'TiendaMPRO/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<br>
+<h1>Vista de Contabilidad</h1>
+<ul>
+    <li>en la nada misma</li>
+
+    <br>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">N° de pago</th>
+                <th scope="col">Valor</th>
+                <th scope="col">N° cuenta</th>
+                <th scope="col">Monto Transferido</th>
+                <th scope="col">Total a pagar por orden</th>
+                <th scope="col">Mensaje</th>
+                <th scope="col">Pagado</th>
+                <th scope="col">Aceptar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pagos %}
+            <tr>
+                {% if p.order.transferencia %}
+                    {% ifequal p.order.pagado False %}
+                        <td data-label="N° de pago">{{p.id}}</td>
+                        <td data-label="Valor">{{p.order}}</td>
+                        <td data-label="N° cuenta">{{p.cuenta_id}}</td>
+                        <td data-label="Monto Transferido">{{p.monto}}</td>
+                        <td data-label="Total a pagar por orden">{{p.order.get_total_descuento}}</td>
+                        <td data-label="Mensaje">{{p.mensaje}}</td>
+                        <td data-label="Pagado">{{p.order.pagado}}</td>
+                        <td data-label="Aceptar">
+                            <form method="get" action="">
+                                <input type="hidden" name="order" value="{{ p.order }}" />
+                                <input class="btn btn-success btn-block" {% ifnotequal p.monto p.order.get_total_descuento %}
+                                    disabled {% endifnotequal %} type="submit" value="Aceptar pago" />
+                            </form>
+                        </td>
+                    {% endifequal %}
+                {% endif %}
+            </tr>
+
+            {% endfor %}
+    </table>
+
+</ul>
+{% endblock %}
