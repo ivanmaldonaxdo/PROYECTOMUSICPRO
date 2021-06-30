@@ -280,9 +280,9 @@ def Transferencia(request):
 def detallePedido(request, pk):
     order = OrdenDeCompra.objects.get(id = pk)
     direccion = order.direcciondeenvio_set.all()
-    #sucursal = order.sucursaldeentrega_set.all()
+    sucursal = order.sucursaldeentrega_set.all()
     items = order.productopedido_set.all()
-    context={'items': items, 'orden' : order, 'direccion': direccion}
+    context={'items': items, 'orden' : order, 'direccion': direccion, 'sucursal': sucursal}
     return render (request, 'TiendaMPRO/detalleProducto.html', context)
 
 def updateOrden(request):
@@ -295,10 +295,10 @@ def updateOrden(request):
 
     if action == 'aceptar':
         order.aceptada = True
+        order.save()
     elif action == 'rechazar':
-        order.aceptada = False
+        order.delete()
 
-    order.save()
 
 
     return JsonResponse('El item fue agregado', safe=False )
@@ -386,3 +386,4 @@ def crearDireccion(request):
             order.retiroTienda = False
         order.save()
     return JsonResponse('El item fue agregado', safe=False )
+

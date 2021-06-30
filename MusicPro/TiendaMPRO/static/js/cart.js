@@ -9,6 +9,11 @@ for(var i = 0; i<updateBtns.length; i++){
         }else{
             actualizarOrdenUsuario(productoId, action)
         }
+        if(action == 'agregar'){
+            alert('Producto Añadido')
+        }else if(action =='quitar'){
+            alert('Producto Descontado')
+        }
     })
 }
 
@@ -48,7 +53,6 @@ function actualizarOrdenUsuario(productoId, action){
     })
     .then((data) =>{
         console.log('data:', data)
-        alert('Producto Añadido')
         location.reload()
     })
 }

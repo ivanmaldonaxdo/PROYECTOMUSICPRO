@@ -29,14 +29,22 @@
             <h5>    </h5>
             <h3>Lugar de entrega</h3>
             <hr>
-            {% for dir in direccion %}
-                <h5>Direccion: {{dir.direccion}}</h5>
-                <h5>Ciudad: {{dir.ciudad}}</h5>
-                <h5>Estado/comuna: {{dir.estado_comuna}}</h5>
-                <h5>Codigo Postal: {{dir.codigo_postal}}</h5>
-                <h5>Pais: {{dir.pais}}</h5>
-                <h5>Fecha: {{dir.fecha_pedido}}</h5>
-            {% endfor %}
+            {% if orden.retiroTienda == False %}
+                {% for dir in direccion %}
+                    <h5>Direccion: {{dir.direccion}}</h5>
+                    <h5>Ciudad: {{dir.ciudad}}</h5>
+                    <h5>Estado/comuna: {{dir.estado_comuna}}</h5>
+                    <h5>Codigo Postal: {{dir.codigo_postal}}</h5>
+                    <h5>Pais: {{dir.pais}}</h5>
+                    <h5>Fecha: {{dir.fecha_pedido}}</h5>
+                {% endfor %}
+            {% endif %}
+            {% if orden.retiroTienda == True %}
+                {% for suc in sucursal %}
+                    <h5>Sucursal de retiro: {{suc.sucursal.ciudad}}</h5>
+                    <h5>Sucursal de retiro: {{suc.sucursal.direccion}}</h5>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 </div>
