@@ -259,6 +259,7 @@ def Transferencia(request):
     pagos=Pago.objects.all()
     print("Nulos : ",nulos)
     print("No Nulos : ",notnulos)
+    print("Todos los pagos :" ,pagos)
     
     q_order=request.GET.get('order')
     if q_order:
@@ -266,7 +267,7 @@ def Transferencia(request):
         pg=Pago.objects.get(order=q_order)
         print("Pago : " ,pg.id)
         print("Aceptado el pago ",pg.id ,", de la orden: " ,q_order)
-        order, created = OrdenDeCompra.objects.get_or_create(id=q_order, complete=False)
+        order, created = OrdenDeCompra.objects.get_or_create(id=q_order, complete=True)
         order.transaction_id = transaction_id
         order.complete = True
         order.pagado = True
