@@ -9,37 +9,46 @@
       <tr>
         <th scope="col">N° de transaccion</th>
         <th scope="col">Valor</th>
-        <th scope="col">Fecha del pedido</th>
         <th scope="col">Lugar de entrega</th>
         <th scope="col">Ver productos</th>
-        <th scope="col">Estado</th>
-        <th scope="col">Opciones</th>
+        <th scope="col">Estado orden</th>
+        <th scope="col">Desicion entrega</th>
+
 
       </tr>
     </thead>
     <tbody>
         {% for ped in order %}
           {% if ped.pagado == True %}
+            
             <tr>
               <td data-label="N° de transaccion">{{ped.transaction_id}}</td>
               <td data-label="Valor">${{ped.get_total_descuento|floatformat:0}}</td>
-              <td data-label="Fecha del pedido">{{ped.date_orderd}}</td>
               {% if ped.retiroTienda == True %}
                 <td data-label="Lugar de entrega">Retiro en Tienda</td>
               {% elif ped.retiroTienda == False %}
                 <td data-label="Lugar de entrega">Envio Domicilio</td>
               {% endif %}
               <td data-label="Ver Productos"><a class="" href="{% url 'detallePedido' ped.id %}">Detalles</a></td>
+      
+              {% if ped.estado == "Al vendedor" %}
+                <td data-label="Opciones">
+                  <button type="button" class="btn btn-sm btn-outline-primary option-btn" data-product="{{ped.id}}" data-action="aceptar">Aceptar</a>
+                  <button type="button" class="btn btn-sm btn-outline-primary option-btn" data-product="{{ped.id}}" data-action="rechazar">Rechazar</a>
+                </td>
+              {% elif ped.estado == "En Bodega" %}
+                <td data-label="Opciones">
+                  <button type="button" class="btn btn-sm btn-outline-primary option-btn" data-product="{{ped.id}}" data-action="aceptar">Aceptar</a>
+                  <button type="button" class="btn btn-sm btn-outline-primary option-btn" data-product="{{ped.id}}" data-action="rechazar">Rechazar</a>
+                </td>
+              {% elif ped.estado == "En transito" %}
+                <td data-label="Ubicacion">En transito</td>
+              {% endif %}
               {% if ped.aceptada == True %}
                 <td data-label="Estado">Aceptada</td>
               {% elif ped.aceptada == False %}
               <td data-label="Estado">Rechazada</td>
               {% endif %}
-              <td data-label="Opciones">
-                <button type="button" class="btn btn-sm btn-outline-primary option-btn" data-product="{{ped.id}}" data-action="aceptar">Aceptar</a>
-                <button type="button" class="btn btn-sm btn-outline-primary option-btn" data-product="{{ped.id}}" data-action="rechazar">Rechazar</a>
-              </td>
-              
               
             </tr>
           {% endif %}

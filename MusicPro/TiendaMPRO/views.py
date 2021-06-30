@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from json.decoder import JSONDecoder
+from typing import OrderedDict
 from django.db.models.query import QuerySet
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -185,13 +186,14 @@ def logoutUsuario(request):
     logout(request)
     return HttpResponseRedirect('/TiendaMPRO/login/')
 
+
 @csrf_exempt
 def CommitPago(request):
-    # print(request.data)
     transaction_id = random.randint(10000000,99999999)
     try:
         tk= token()
         response=tr.Transaction.commit(tk)
+        direccion = DireccionDeEnvio.objects.get(order = response.buy_order)
         if response.response_code == 0:
             id_order = response.buy_order
             order, created = OrdenDeCompra.objects.get_or_create(id=id_order, complete=False)
@@ -203,6 +205,7 @@ def CommitPago(request):
             print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A FALSE ")
         else:
             print('El pago fue rechazado')
+            direccion.delete()
         context={'tk':tk,'respse':response, 'order': order}
 
     except:
@@ -264,10 +267,13 @@ def Transferencia(request):
     # print(pagos.order.fk)
     context={'pagos':pagos}
     return render(request,'TiendaMPRO/Pagos.html',context)
+
 def detallePedido(request, pk):
     order = OrdenDeCompra.objects.get(id = pk)
+    direccion = order.direcciondeenvio_set.all()
+    #sucursal = order.sucursaldeentrega_set.all()
     items = order.productopedido_set.all()
-    context={'items': items, 'orden' : order}
+    context={'items': items, 'orden' : order, 'direccion': direccion}
     return render (request, 'TiendaMPRO/detalleProducto.html', context)
 
 def updateOrden(request):
@@ -338,5 +344,33 @@ def cancelarDespacho(request):
     order, created = OrdenDeCompra.objects.get_or_create(id = ordenId)
     if action == 'rechazar':
         order.estado = "En Bodega"
+    elif action == 'confirmar':
+        order.estado = "En transito"
     order.save()
     return JsonResponse('El despacho fue cancelado', safe=False )
+
+def crearDireccion(request):
+    data = json.loads(request.body)
+    # tretiro = data['sucursal']['ciudad']
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
+        # if tretiro > 0:
+        #     SucursalDeEntrega.objects.create(
+        #         sucursal = tretiro,
+        #         order = order
+        #     )
+        #     order.retiroTienda = True
+        # else:
+        DireccionDeEnvio.objects.create(
+            customer = customer,
+            order = order,
+            direccion = data['shipping']['address'],
+            ciudad =data['shipping']['city'],
+            estado_comuna =data['shipping']['state'],
+            codigo_postal =data['shipping']['zipcode'],
+            pais =data['shipping']['country']
+        )
+        order.retiroTienda = False
+        order.save()
+    return JsonResponse('El item fue agregado', safe=False )

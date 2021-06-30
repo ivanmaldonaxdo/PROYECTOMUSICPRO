@@ -22,8 +22,8 @@
                 <td data-label="Codigo Orden">{{o.id}}</td>
                 <td data-label="Productos"><a class="btn btn-sm btn-outline-primary" href="#">Detalles</a></td>
                 <td data-label="Cambiar Estado">
-                <a class="btn btn-sm btn-outline-primary" href="#">Confirmar</a>
-                <button type="button" class="btn btn-sm btn-outline-primary envio-btn" data-product="{{o.id}}" data-action="rechazar">Rechazar</a>
+                  <button type="button" class="btn btn-sm btn-outline-primary envio-btn" data-product="{{o.id}}" data-action="confirmar">Confirmar</a>
+                  <button type="button" class="btn btn-sm btn-outline-primary envio-btn" data-product="{{o.id}}" data-action="rechazar">Rechazar</a>
                 </td>
                 <td data-label="Estado Orden">En tienda</td>
             </tr>
@@ -32,6 +32,7 @@
         {% endfor %}
     </tbody>
   </table>
+
   <script type="text/javascript">
   
     var btnestado = document.getElementsByClassName('envio-btn')

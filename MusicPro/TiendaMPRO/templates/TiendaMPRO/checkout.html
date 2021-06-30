@@ -62,8 +62,9 @@
 			<p>Opciones de pago</p>
 			<div class="form-field">
 				<form method="post" action={{response.url}}>
+					{% csrf_token %}
 					<input type="hidden" name="token_ws" value={{response.token}} />
-					<input class="btn btn-success btn-block" type="submit" value="Pago Transbank" />
+					<input class="btn btn-success btn-block" id="make-payment" data-action="crear" type="submit" value="Pago Transbank" />
 				</form>
 			</div>
 		
@@ -139,9 +140,7 @@
 	})
 	function submitFormData(){
 
-		// var datosUser = {
-		// 	'total': total
-		// }
+
 
 		var shippingInfo = {
 			'address':null,
@@ -165,14 +164,15 @@
 			sucursal.ciudad = form.tienda.value
 		}
 
-		var urls2 = '/CommitPago/'
+		var urls2 = '/crear_direccion/'
 		
 		fetch(urls2,{
 			method:'POST',
 			headers:{
                 'Content-Type':'application/json',
+				'X-CSRFToken': csrftoken,
 			},
-			data:JSON.stringify({'shipping':shippingInfo})
+			body:JSON.stringify({'shipping':shippingInfo, 'sucursal': sucursal})
 
 		})
 		.then((response)=>response.json())

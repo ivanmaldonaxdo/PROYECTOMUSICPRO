@@ -101,7 +101,6 @@ class Producto(models.Model):
 
 class OrdenDeCompra(models.Model):
     customer = models.ForeignKey(Usuario, on_delete=models.SET_NULL, blank=True, null=True)
-    date_orderd= models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
     retiroTienda = models.BooleanField(default=False, null=True, blank=False)
     transaction_id=  models.CharField(max_length=200, null=True)

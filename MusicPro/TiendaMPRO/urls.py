@@ -29,6 +29,6 @@ urlpatterns = [
     path('crear_despacho/', views.crearDespacho, name='crear_despacho'),
     path('ordenes_despacho/', views.ordenesEnvio, name='ordenes_despacho'),
     path('cancelar_despacho/', views.cancelarDespacho, name='cancelar_despacho'),
-
+    path('crear_direccion/', views.crearDireccion, name='crear_direccion'),
 
 ]
