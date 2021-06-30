@@ -121,7 +121,10 @@ def checkout(request):
         #SI SE HACE Y VALIDA EL SUBMIT,SE ACTUALIZA ORDER.TRANSFERENCIA A TRUE    
         if q_transfer:
             order.transferencia = True
+            order.complete = True
             order.save()
+            success_url = reverse_lazy('store')
+            return HttpResponseRedirect(success_url)
             print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A TRUE ")
 
     else:
@@ -193,10 +196,13 @@ def CommitPago(request):
     try:
         tk= token()
         response=tr.Transaction.commit(tk)
-        direccion = DireccionDeEnvio.objects.get(order = response.buy_order)
+        id_order = response.buy_order
+        order, created = OrdenDeCompra.objects.get_or_create(id=id_order, complete=False)
+        if order.retiroTienda == True:
+            sucursal = SucursalDeEntrega.objects.get(order = response.buy_order)
+        else:
+            direccion = DireccionDeEnvio.objects.get(order = response.buy_order)
         if response.response_code == 0:
-            id_order = response.buy_order
-            order, created = OrdenDeCompra.objects.get_or_create(id=id_order, complete=False)
             order.transaction_id = transaction_id
             order.complete = True
             order.pagado = True
@@ -205,7 +211,10 @@ def CommitPago(request):
             print("SE HA ACTUALIZADO LA COLUMNA DE TRANSFERENCIA A FALSE ")
         else:
             print('El pago fue rechazado')
-            direccion.delete()
+            if order.retiroTienda == True:
+                sucursal.delete()
+            else:
+                direccion.delete()
         context={'tk':tk,'respse':response, 'order': order}
 
     except:
@@ -350,27 +359,30 @@ def cancelarDespacho(request):
     return JsonResponse('El despacho fue cancelado', safe=False )
 
 def crearDireccion(request):
+    print(request.body)
     data = json.loads(request.body)
-    # tretiro = data['sucursal']['ciudad']
+    tretiro = data['sucursal']['ciudad']
+    print(type(tretiro))
     if request.user.is_authenticated:
         customer = request.user
         order, created = OrdenDeCompra.objects.get_or_create(customer=customer, complete=False)
-        # if tretiro > 0:
-        #     SucursalDeEntrega.objects.create(
-        #         sucursal = tretiro,
-        #         order = order
-        #     )
-        #     order.retiroTienda = True
-        # else:
-        DireccionDeEnvio.objects.create(
-            customer = customer,
-            order = order,
-            direccion = data['shipping']['address'],
-            ciudad =data['shipping']['city'],
-            estado_comuna =data['shipping']['state'],
-            codigo_postal =data['shipping']['zipcode'],
-            pais =data['shipping']['country']
-        )
-        order.retiroTienda = False
+        if tretiro is not None:
+            sucursal = Sucursal.objects.get(id = tretiro)
+            SucursalDeEntrega.objects.create(
+                sucursal = sucursal,
+                order = order
+            )
+            order.retiroTienda = True
+        elif tretiro is None:
+            DireccionDeEnvio.objects.create(
+                customer = customer,
+                order = order,
+                direccion = data['shipping']['address'],
+                ciudad =data['shipping']['city'],
+                estado_comuna =data['shipping']['state'],
+                codigo_postal =data['shipping']['zipcode'],
+                pais =data['shipping']['country']
+            )
+            order.retiroTienda = False
         order.save()
     return JsonResponse('El item fue agregado', safe=False )

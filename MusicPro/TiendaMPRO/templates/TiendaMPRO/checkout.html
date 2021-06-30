@@ -64,14 +64,14 @@
 				<form method="post" action={{response.url}}>
 					{% csrf_token %}
 					<input type="hidden" name="token_ws" value={{response.token}} />
-					<input class="btn btn-success btn-block" id="make-payment" data-action="crear" type="submit" value="Pago Transbank" />
+					<input class="btn btn-success btn-block" id="make-payment" type="submit" value="Pago Transbank" />
 				</form>
 			</div>
 		
 			<div class="form-field">
 				<form method="get" action="">
 					<input type="hidden" name="transferencia" value = "no"/>
-					<input class="btn btn-success btn-block" type="submit" value="Pago Transferencia" />
+					<input class="btn btn-success btn-block" id="make-payment" type="submit" value="Pago Transferencia" />
 				</form>
 			</div>
 		
@@ -151,7 +151,7 @@
 		}
 
 		var sucursal = {
-			'ciudad': null,
+			'ciudad':null,
 		}
 
 		if (envio.checked){
@@ -160,8 +160,9 @@
 			shippingInfo.state = form.state.value
 			shippingInfo.zipcode = form.zipcode.value
 			shippingInfo.country = form.country.value
-		}else{
+		}else if (envio.checked == false){
 			sucursal.ciudad = form.tienda.value
+
 		}
 
 		var urls2 = '/crear_direccion/'

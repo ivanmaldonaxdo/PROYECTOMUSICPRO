@@ -180,7 +180,7 @@ class EstrategiaDeVenta(models.Model):
     fecha_creacion_modificacion = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
-        return self.titulo + ' | ' + str(self.user.nombre)
+        return self.titulo
 
 class Pago(models.Model):
     order = models.ForeignKey(OrdenDeCompra, on_delete=models.SET_NULL, blank=True, null=True)
