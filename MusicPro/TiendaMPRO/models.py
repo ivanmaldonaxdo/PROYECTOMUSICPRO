@@ -161,8 +161,8 @@ class ProductoPedido(models.Model):
         return total
 
 class DireccionDeEnvio(models.Model):
-    customer =  models.ForeignKey(Usuario, on_delete=models.SET_NULL, blank=True, null=True)
-    order = models.ForeignKey(OrdenDeCompra, on_delete=models.SET_NULL, blank=True, null=True)
+    customer =  models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
+    order = models.ForeignKey(OrdenDeCompra, on_delete=models.CASCADE, blank=True, null=True)
     direccion = models.CharField(max_length=200, null=True)
     ciudad = models.CharField(max_length=200, null=True)
     estado_comuna = models.CharField(max_length=200, null=True)
@@ -200,7 +200,7 @@ class Sucursal(models.Model):
         return self.ciudad
 
 class SucursalDeEntrega(models.Model):
-    sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, blank=True, null=True)
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, blank=True, null=True)
     order = models.ForeignKey(OrdenDeCompra, on_delete=models.SET_NULL, blank=True, null=True)
 
 

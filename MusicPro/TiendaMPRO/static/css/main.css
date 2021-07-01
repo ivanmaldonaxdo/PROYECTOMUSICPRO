@@ -172,11 +172,11 @@ h1,h2,h3,h4,h5,h6{
 	padding-right: 50px;
 }
 .tbl_cont >thead > tr > th {
-	font-size: 8px;
+	font-size: 14px;
 	text-align: center;
 }
 .tbl_cont >tbody > tr > td {
-	font-size: 8px;
+	font-size: 14px;
 	text-align: center;
 }
 .tbl_cont thead th  {

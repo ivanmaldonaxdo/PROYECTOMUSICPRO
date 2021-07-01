@@ -1,8 +1,12 @@
 from django.conf.urls import include, url
 from . import views
 from django.contrib.auth.views import logout_then_login
-from .views import Estrategia, RegistrarUsuario, Login,RegistraEstrateg, Registrar_vendedor
+from .views import Estrategia, RegistrarUsuario, Login,RegistraEstrateg, Registrar_vendedor, ProductoViewSet
 from django.urls import path
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('productos', ProductoViewSet)
 
 urlpatterns = [
     path('', Login.as_view(), name='login'),
@@ -30,5 +34,6 @@ urlpatterns = [
     path('ordenes_despacho/', views.ordenesEnvio, name='ordenes_despacho'),
     path('cancelar_despacho/', views.cancelarDespacho, name='cancelar_despacho'),
     path('crear_direccion/', views.crearDireccion, name='crear_direccion'),
+    path('api/', include(router.urls)),
 
 ]

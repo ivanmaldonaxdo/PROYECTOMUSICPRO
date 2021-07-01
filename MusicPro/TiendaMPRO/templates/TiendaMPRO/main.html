@@ -49,11 +49,18 @@
               <li class="nav-item active dropdown">
                 <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" href="#" id="navbarDropdown">Ventas<span class="sr-only">(current)</span></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{% url 'estrategias' %}">Pedidos</a>
+                  <a class="dropdown-item" href="{% url 'pedidos' %}">Pedidos</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{% url 'registrar_trabajador' %}">Ordenes de envio</a>
-                  
+                  <a class="dropdown-item" href="{% url 'ordenes_despacho' %}">Ordenes de envio</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'bodega' %}">Bodega</a>
                 </div>
+              </li>
+              {% endif %}
+              {% if user.usuario_bodega %}
+              <li class="nav-item active">
+                <a class="nav-link " href="{% url 'ordenes_bodega' %}">ordenes Bodega<span class="sr-only">(current)</span>
+                </a>
               </li>
               {% endif %}
               <!-- USUARIO CONTTADOR -->
