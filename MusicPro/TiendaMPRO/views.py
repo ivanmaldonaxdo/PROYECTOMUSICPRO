@@ -17,7 +17,7 @@ from django.views.generic.edit import DeleteView, FormView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from .models import Usuario, EstrategiaDeVenta
-from .forms import FormularioRegistro, LoginUsuario
+from .forms import FormProducto, FormularioRegistro, LoginUsuario
 from django.contrib.auth import (authenticate, logout ,login)
 from django.contrib import messages
 from django.utils.decorators import method_decorator
@@ -389,8 +389,8 @@ def crearDireccion(request):
     return JsonResponse('El item fue agregado', safe=False )
 
 
-# class CrearProducto(CreateView):
-#     model=Producto
-#     form_class=FormEstrategiaVta
-#     template_name='TiendaMPRO/addEstrategia.html'
-#     success_url=reverse_lazy('estrategias')
+class CrearProducto(CreateView):
+    model=Producto
+    form_class=FormProducto
+    template_name='TiendaMPRO/addProducto.html'
+    success_url=reverse_lazy('estrategias')

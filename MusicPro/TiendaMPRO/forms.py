@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.forms import fields, widgets
-from .models import OrdenDeEntrega, Usuario,EstrategiaDeVenta
+from .models import OrdenDeEntrega, Producto, Usuario,EstrategiaDeVenta
 
 
 #Formulario de registro
@@ -129,7 +129,31 @@ class FormularioRegistroEmpleado(forms.ModelForm):
             user.save()
         return user
 
-# class FromProducto(forms.Form):
-#     """FORMNAME definition."""
-#     class
-#     # TODO: Define form fields here
+
+class FormProducto(forms.ModelForm):
+    """Form definition for MODELNAME."""
+
+    class Meta:
+        """Meta definition for MODELNAMEform."""
+
+        model=Producto
+        fields=['nom_prod','tipo_prod','descripcion','precio','imagen']
+        widgets={
+            'nom_prod':forms.TextInput(attrs={'class':'form-control'}),
+            'tipo_prod':forms.Select(attrs={'class':'form-control'}),
+            'descripcion':forms.TextInput(attrs={'class':'form-select'}),
+            'precio':forms.FloatField(),
+            'imagen':forms.FileField()
+        }
+# class FormProducto(forms.ModelForm):
+#     class Meta:
+#         model=Producto
+#         fields=['nomprod','tipo_prod','descripcion','precio','imagen']
+#         widgets={
+#             'nomprod':forms.TextInput(attrs={'class':'form-control'}),
+#             'tipo_prod':forms.Select(attrs={'class':'form-control'}),
+#             'descripcion':forms.TextInput(attrs={'class':'form-select'}),
+#             'precio':forms.FloatField(attrs={'class':'form-control'}),
+#             'imagen':forms.FileField(attrs={'class':'form-control'})
+#         }
+
