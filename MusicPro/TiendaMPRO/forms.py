@@ -128,3 +128,8 @@ class FormularioRegistroEmpleado(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+# class FromProducto(forms.Form):
+#     """FORMNAME definition."""
+#     class
+#     # TODO: Define form fields here

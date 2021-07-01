@@ -387,3 +387,10 @@ def crearDireccion(request):
             order.retiroTienda = False
         order.save()
     return JsonResponse('El item fue agregado', safe=False )
+
+
+# class CrearProducto(CreateView):
+#     model=Producto
+#     form_class=FormEstrategiaVta
+#     template_name='TiendaMPRO/addEstrategia.html'
+#     success_url=reverse_lazy('estrategias')
