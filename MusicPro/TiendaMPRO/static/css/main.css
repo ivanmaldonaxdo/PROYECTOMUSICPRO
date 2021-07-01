@@ -171,6 +171,20 @@ h1,h2,h3,h4,h5,h6{
 #lbl_categ{
 	padding-right: 50px;
 }
+.tbl_cont >thead > tr > th {
+	font-size: 8px;
+	text-align: center;
+}
+.tbl_cont >tbody > tr > td {
+	font-size: 8px;
+	text-align: center;
+}
+.tbl_cont thead th  {
+	align-content: center;
+}
+.tbl_cont tbody td  {
+	align-content: center;
+}
 @media screen and (max-width: 400px) {
 	#sin_prod{
 		font-size: 20px;
