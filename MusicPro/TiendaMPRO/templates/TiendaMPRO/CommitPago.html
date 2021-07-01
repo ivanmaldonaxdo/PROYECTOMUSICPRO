@@ -1,16 +1,17 @@
-{% extends 'TiendaMPRO/base.html' %}
+{% extends 'TiendaMPRO/main.html' %}
 
 {% load static %}
 
-{% block contenido %}
-    <div class="commit-pago-content">
-        <h1>COMMIT TRANSBANK </h1>
+{% block content %}
+    <div class="">
+        <h1 class="display-6" id="sin_prod">COMMIT TRANSBANK</h1>
         {% ifequal respse.response_code 0 %}
-            <h1>TRANSACCION APROBADA</h1>           
-            <div class="tabla">
-                <table>
+        <br>
+        <h1 class="display-6" id="sin_prod">TRANSACCION APROBADA</h1>
+            <div>
+                <table  class="table">
                     <caption>detalle de transacción</caption>
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
                             <th>orden de compra</th>
                             <th>monto</th>
@@ -21,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr class="table-primary">
                             <td data-label="orden de compra">{{respse.buy_order}}</td>
                             <td data-label="monto">${{respse.amount|floatformat:0}}</td>
                             <td data-label="código autorización">{{respse.authorization_code}}</td>
@@ -35,7 +36,7 @@
         {% endifequal %}
         
         {% ifnotequal  respse.response_code 0 %}
-            <h1>TRANSACCION RECHAZADA...VUELVA AL INICIO</h1>           
+            <h1 class="display-6" id="sin_prod">TRANSACCION RECHAZADA...VUELVA AL INICIO</h1>   
         {% endifnotequal %}
             
 
@@ -45,5 +46,5 @@
             </button>
         </form>  
     </div>
-{% endblock %}
+{% endblock content %}
 
