@@ -9,6 +9,8 @@ from .models import *
 from django.contrib.auth.decorators import login_required, user_passes_test
 import transbank.webpay.webpay_plus.transaction as tr
 import random
+from rest_framework import serializers, viewsets
+from .serializers import ProductoSerializer
 import datetime
 # Create your views here.
 from django.http import JsonResponse, request
@@ -387,3 +389,6 @@ def crearDireccion(request):
         order.save()
     return JsonResponse('El item fue agregado', safe=False )
 
+class ProductoViewSet(viewsets.ModelViewSet):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
