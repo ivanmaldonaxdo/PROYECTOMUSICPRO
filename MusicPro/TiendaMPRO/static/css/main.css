@@ -191,6 +191,11 @@ h1,h2,h3,h4,h5,h6{
 .centra{
 	justify-content: center;
 }
+.btn-home{
+	display: grid;
+	margin-top: 20px;
+	margin-left:45%;
+  }
 @media screen and (max-width: 400px) {
 	#sin_prod{
 		font-size: 20px;
