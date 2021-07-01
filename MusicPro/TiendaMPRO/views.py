@@ -19,7 +19,7 @@ from django.views.generic.edit import DeleteView, FormView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from .models import Usuario, EstrategiaDeVenta
-from .forms import FormularioRegistro, LoginUsuario
+from .forms import FormProducto, FormularioRegistro, LoginUsuario
 from django.contrib.auth import (authenticate, logout ,login)
 from django.contrib import messages
 from django.utils.decorators import method_decorator
@@ -393,3 +393,16 @@ def crearDireccion(request):
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
+class CrearProducto(CreateView):
+    model=Producto
+    form_class=FormProducto
+    template_name='TiendaMPRO/addProducto.html'
+    success_url=reverse_lazy('bodega')
+
+def DeleteProducto(request,pk):
+    productos=Producto.objects.get(pk=pk)
+    productos.delete()
+    productos.save()
+    productos = Producto.objects.all()
+    context={'productos' : productos}
+    return render(request, 'TiendaMPRO/bodega.html',context)

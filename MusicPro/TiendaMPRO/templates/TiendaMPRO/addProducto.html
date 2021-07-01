@@ -1,0 +1,21 @@
+{% extends 'TiendaMPRO/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row centra" ">
+    <div class="col-lg-6">
+        <div class="box-element">
+            <h4>Agregar Producto</h4>
+        </div>
+        <div class="box-element">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-field prod" >
+                    {{ form.as_p }}
+                </div>
+                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Registrar">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

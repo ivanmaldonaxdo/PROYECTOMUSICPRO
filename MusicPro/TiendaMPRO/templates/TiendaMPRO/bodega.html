@@ -12,6 +12,7 @@
         <th scope="col">Tipo de producto</th>
         <th scope="col">Precio</th>
         <th scope="col">Imagen</th>
+        <th scope="col">CRUD</th>
       </tr>
     </thead>
     <tbody>
@@ -22,8 +23,17 @@
             <td data-label="Tipo de producto">{{pro.tipo_prod}}</td>
             <td data-label="Precio">{{pro.precio|floatformat:0}}</td>
             <td data-label="Imagen"><a class="" href="{% url 'imagenProducto' pro.id %}">Ver Imagen</a></td>
-        </tr>
+            <td data-label="CRUD">
+              <a class="" href=""> Eliminar</a>     
+            </td>
+          </tr>
       {% endfor %}
     </tbody>
   </table>
+  <div class="form-field centra">
+    <form method="get" action="{% url 'addProducto' %}">
+      <input type="hidden" name="transferencia" value = "no"/>
+      <input class="btn btn-success btn-block" type="submit" value="Agregar producto" />
+    </form>
+  </div>
 {% endblock %}
