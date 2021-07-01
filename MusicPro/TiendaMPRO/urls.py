@@ -31,6 +31,7 @@ urlpatterns = [
     path('cancelar_despacho/', views.cancelarDespacho, name='cancelar_despacho'),
     path('crear_direccion/', views.crearDireccion, name='crear_direccion'),
     path('crear_producto/', views.CrearProducto.as_view(), name='addProducto'),
+    path('delete_producto/<int:pk>/', views.DeleteProducto, name='delProducto'),
 
 
 ]

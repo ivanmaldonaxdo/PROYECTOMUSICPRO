@@ -388,9 +388,16 @@ def crearDireccion(request):
         order.save()
     return JsonResponse('El item fue agregado', safe=False )
 
-
 class CrearProducto(CreateView):
     model=Producto
     form_class=FormProducto
     template_name='TiendaMPRO/addProducto.html'
     success_url=reverse_lazy('bodega')
+
+def DeleteProducto(request,pk):
+    productos=Producto.objects.get(pk=pk)
+    productos.delete()
+    productos.save()
+    productos = Producto.objects.all()
+    context={'productos' : productos}
+    return render(request, 'TiendaMPRO/bodega.html',context)

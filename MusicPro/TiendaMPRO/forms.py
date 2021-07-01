@@ -145,15 +145,5 @@ class FormProducto(forms.ModelForm):
             # 'precio':forms.FloatField(),
             # 'imagen':forms.FileField()
         }
-# class FormProducto(forms.ModelForm):
-#     class Meta:
-#         model=Producto
-#         fields=['nomprod','tipo_prod','descripcion','precio','imagen']
-#         widgets={
-#             'nomprod':forms.TextInput(attrs={'class':'form-control'}),
-#             'tipo_prod':forms.Select(attrs={'class':'form-control'}),
-#             'descripcion':forms.TextInput(attrs={'class':'form-select'}),
-#             'precio':forms.FloatField(attrs={'class':'form-control'}),
-#             'imagen':forms.FileField(attrs={'class':'form-control'})
-#         }
+
 
