@@ -141,9 +141,9 @@ class FormProducto(forms.ModelForm):
         widgets={
             'nom_prod':forms.TextInput(attrs={'class':'form-control'}),
             'tipo_prod':forms.Select(attrs={'class':'form-control'}),
-            'descripcion':forms.TextInput(attrs={'class':'form-select'}),
-            'precio':forms.FloatField(),
-            'imagen':forms.FileField()
+            'descripcion':forms.Textarea(attrs={'class':'form-control'}),
+            # 'precio':forms.FloatField(),
+            # 'imagen':forms.FileField()
         }
 # class FormProducto(forms.ModelForm):
 #     class Meta:

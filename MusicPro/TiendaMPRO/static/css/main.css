@@ -185,6 +185,12 @@ h1,h2,h3,h4,h5,h6{
 .tbl_cont tbody td  {
 	align-content: center;
 }
+.prod{
+	width: 100%;
+}
+.centra{
+	justify-content: center;
+}
 @media screen and (max-width: 400px) {
 	#sin_prod{
 		font-size: 20px;

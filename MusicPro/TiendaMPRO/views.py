@@ -393,4 +393,4 @@ class CrearProducto(CreateView):
     model=Producto
     form_class=FormProducto
     template_name='TiendaMPRO/addProducto.html'
-    success_url=reverse_lazy('estrategias')
+    success_url=reverse_lazy('bodega')
